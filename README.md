@@ -510,7 +510,9 @@ The repository currently contains the practical Single Image and Batch workflows
 
 ## License
 
-License information should be added here once the repository license is formally defined.
+FungiGrowthJ is released under the MIT License.
+
+See the [LICENSE](LICENSE) file for the full license text
 
 ---
 
