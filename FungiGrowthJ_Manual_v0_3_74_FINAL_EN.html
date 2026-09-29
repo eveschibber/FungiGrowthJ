@@ -1,0 +1,2259 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   FungiGrowthJ &mdash; User Manual and Technical Guide v0.3
+  </title>
+  <style>
+   :root{
+  --bg:#f4f7f4;
+  --paper:#ffffff;
+  --ink:#203027;
+  --muted:#66746b;
+  --accent:#2f7d4a;
+  --accent-2:#dfeee4;
+  --line:#d9e3dc;
+  --warn:#fff6df;
+  --warn-line:#d7a62a;
+  --info:#eef5fb;
+  --info-line:#4b7ca8;
+  --code:#17201a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.65;
+}
+header{
+  background:linear-gradient(135deg,#173f28,#2f7d4a);
+  color:white;
+  padding:64px 24px 54px;
+}
+.header-inner{max-width:1180px;margin:auto}
+.kicker{
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:.78rem;
+  opacity:.82;
+  margin-bottom:10px;
+}
+h1{
+  font-size:clamp(2.4rem,6vw,4.8rem);
+  line-height:1;
+  margin:0 0 18px;
+}
+.subtitle{
+  max-width:780px;
+  font-size:1.18rem;
+  opacity:.94;
+}
+.version{
+  display:inline-block;
+  margin-top:24px;
+  padding:8px 14px;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:999px;
+  font-size:.9rem;
+}
+.layout{
+  max-width:1240px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:280px minmax(0,1fr);
+  gap:28px;
+  padding:34px 24px 80px;
+}
+nav{
+  position:sticky;
+  top:18px;
+  align-self:start;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 8px 24px rgba(20,55,33,.06);
+}
+nav h2{
+  font-size:1rem;
+  margin:0 0 12px;
+}
+nav a{
+  display:block;
+  color:var(--ink);
+  text-decoration:none;
+  padding:8px 10px;
+  border-radius:8px;
+  font-size:.94rem;
+}
+nav a:hover{background:var(--accent-2);color:var(--accent)}
+main{min-width:0}
+section{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:34px;
+  margin-bottom:26px;
+  box-shadow:0 8px 24px rgba(20,55,33,.045);
+}
+h2{
+  font-size:1.9rem;
+  margin:0 0 18px;
+  line-height:1.2;
+}
+h3{
+  font-size:1.28rem;
+  margin:28px 0 10px;
+  color:#244e33;
+}
+h4{
+  margin:22px 0 8px;
+  font-size:1.04rem;
+}
+p{margin:10px 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{
+  background:#edf2ee;
+  padding:.14em .38em;
+  border-radius:5px;
+  font-family:Consolas,Monaco,monospace;
+  font-size:.92em;
+}
+pre{
+  background:var(--code);
+  color:#eaf5ed;
+  padding:18px;
+  border-radius:12px;
+  overflow:auto;
+  line-height:1.5;
+}
+.callout{
+  border-left:4px solid var(--accent);
+  background:var(--accent-2);
+  padding:16px 18px;
+  border-radius:10px;
+  margin:20px 0;
+}
+.warning{
+  border-left-color:var(--warn-line);
+  background:var(--warn);
+}
+.info{
+  border-left-color:var(--info-line);
+  background:var(--info);
+}
+.step{
+  display:grid;
+  grid-template-columns:64px 1fr;
+  gap:18px;
+  padding:20px 0;
+  border-top:1px solid var(--line);
+}
+.step:first-of-type{border-top:0}
+.step-number{
+  width:52px;height:52px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--accent);
+  color:white;
+  font-weight:700;
+  font-size:1.15rem;
+}
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+.card{
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:18px;
+  background:#fbfdfb;
+}
+.card h3,.card h4{margin-top:0}
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:18px 0;
+  font-size:.94rem;
+}
+th,td{
+  border:1px solid var(--line);
+  padding:10px 12px;
+  text-align:left;
+  vertical-align:top;
+}
+th{background:#edf5ef}
+.badge{
+  display:inline-block;
+  padding:4px 9px;
+  border-radius:999px;
+  background:var(--accent-2);
+  color:var(--accent);
+  font-size:.78rem;
+  font-weight:700;
+}
+.placeholder{
+  border:2px dashed #b8c8bc;
+  padding:28px;
+  text-align:center;
+  border-radius:12px;
+  color:var(--muted);
+  margin:16px 0;
+  background:#fafcfb;
+}
+.small{font-size:.9rem;color:var(--muted)}
+footer{
+  max-width:1180px;
+  margin:0 auto 50px;
+  padding:0 24px;
+  color:var(--muted);
+  font-size:.9rem;
+}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  nav{position:relative;top:auto}
+  .grid-2{grid-template-columns:1fr}
+}
+  </style>
+ </head>
+ <body>
+  <header>
+   <div class="header-inner">
+    <div class="kicker">
+     Open scientific software for Fiji/ImageJ
+    </div>
+    <h1>
+     FungiGrowthJ
+    </h1>
+    <div class="subtitle">
+     User manual, methodological guide, and technical record for the reproducible quantification of manually delineated fungal colony growth.
+    </div>
+    <div class="version">
+     Final release &middot; FGJ_SingleImage 0.3.74 &middot; FGJ_Batch 0.2.25 &middot; September 2026
+    </div>
+   </div>
+  </header>
+  <div class="layout">
+   <nav>
+    <h2>
+     Contents
+    </h2>
+    <a href="#introduccion">
+     1. Introduction
+    </a>
+    <a href="#principios">
+     2. Design principles
+    </a>
+    <a href="#quick-start">
+     3. Quick start
+    </a>
+    <a href="#estructura">
+     4. Organization
+    </a>
+    <a href="#experiment-manager">
+     5. Experiment Manager
+    </a>
+    <a href="#single-image">
+     6. Wizard
+    </a>
+    <a href="#escala">
+     7. Scale
+    </a>
+    <a href="#agar-sample">
+     8. Agar sample
+    </a>
+    <a href="#agar-detection">
+     9. Agar detection
+    </a>
+    <a href="#marker-mask">
+     10. Marker mask
+    </a>
+    <a href="#objetos">
+     11. Objects
+    </a>
+    <a href="#revision">
+     12. Review
+    </a>
+    <a href="#mediciones">
+     13. Measurements
+    </a>
+    <a href="#series">
+     14. Time series
+    </a>
+    <a href="#qa">
+     15. Quality Assurance
+    </a>
+    <a href="#troubleshooting">
+     16. Common errors
+    </a>
+    <a href="#arquitectura">
+     17. Architecture
+    </a>
+    <a href="#example">
+     18. GitHub example
+    </a>
+    <a href="#roadmap">
+     19. Final release status
+    </a>
+    <a href="#reproducibilidad">
+     20. Reproducibility
+    </a>
+    <a href="#release-note">
+     Release note
+    </a>
+   </nav>
+   <main>
+    <section id="introduccion">
+     <span class="badge">
+      Overview
+     </span>
+     <h2>
+      1. Introduction
+     </h2>
+     <p>
+      <strong>
+       FungiGrowthJ
+      </strong>
+      is an open workflow for Fiji/ImageJ designed to organize, validate, measure, and analyze longitudinal fungal colony growth experiments on Petri dishes.
+     </p>
+     <p>
+      The tool was designed for photographs in which the outer colony boundaries were manually outlined with a black marker. It can quantify the central colony and satellite colonies, preserve review decisions, and export calibrated results in physical units.
+     </p>
+     <div class="callout">
+      <strong>
+       Objective:
+      </strong>
+      automate repetitive work without hiding scientific decisions. Every relevant step is shown, validated, and recorded.
+     </div>
+     <h3>
+      Final status
+     </h3>
+     <ul>
+      <li>
+       Experiment Manager with structure and manifest validation.
+      </li>
+      <li>
+       Integrated launcher and reproducible Batch workflow.
+      </li>
+      <li>
+       Complete single-image wizard.
+      </li>
+      <li>
+       Spatial calibration and controlled reuse of agar references.
+      </li>
+      <li>
+       Marker mask using
+       <code>
+        IJ_IsoData
+       </code>
+       with morphological closing and optional gap closure.
+      </li>
+      <li>
+       Manual removal of dark artifacts from the detection mask without modifying the original photograph.
+      </li>
+      <li>
+       Enhanced partitioning of connected objects and manual seed refinement when needed.
+      </li>
+      <li>
+       Colony detection, measurement, review, classification, and editing.
+      </li>
+      <li>
+       Persistence of automatic and final ROIs for traceability.
+      </li>
+      <li>
+       CSV export with scientific results, parameters, and metadata.
+      </li>
+      <li>
+       QA Workflow and persistent Batch states:
+       <code>
+        PENDING
+       </code>
+       ,
+       <code>
+        IN_PROGRESS
+       </code>
+       ,
+       <code>
+        REVIEW
+       </code>
+       ,
+       <code>
+        ERROR
+       </code>
+       ,
+       <code>
+        COMPLETED
+       </code>
+       , among others.
+      </li>
+     </ul>
+     <div class="callout">
+      <strong>
+       Final release:
+      </strong>
+      this version documents the FungiGrowthJ behavior used for publication. No further functional changes are proposed within this release.
+     </div>
+    </section>
+    <section id="principios">
+     <span class="badge">
+      Design philosophy
+     </span>
+     <h2>
+      2. Design principles
+     </h2>
+     <div class="grid-2">
+      <div class="card">
+       <h3>
+        Transparency
+       </h3>
+       <p>
+        No automatic decision that may affect a scientific result should remain hidden.
+       </p>
+      </div>
+      <div class="card">
+       <h3>
+        Untouched originals
+       </h3>
+       <p>
+        Original images are never modified.
+       </p>
+      </div>
+      <div class="card">
+       <h3>
+        Human review
+       </h3>
+       <p>
+        The software proposes; the user confirms, corrects, or ignores.
+       </p>
+      </div>
+      <div class="card">
+       <h3>
+        Reproducibility
+       </h3>
+       <p>
+        Versions, parameters, calibration, states, and actions are recorded.
+       </p>
+      </div>
+      <div class="card">
+       <h3>
+        Knowledge built into the software
+       </h3>
+       <p>
+        The wizard explains what to do, why to do it, and how to evaluate the result.
+       </p>
+      </div>
+      <div class="card">
+       <h3>
+        Modular architecture
+       </h3>
+       <p>
+        Components are separated into management, segmentation, review, measurement, and export.
+       </p>
+      </div>
+     </div>
+    </section>
+    <section id="quick-start">
+     <span class="badge">
+      Quick start
+     </span>
+     <h2>
+      3. Quick start
+     </h2>
+     <ol>
+      <li>
+       Organize images using the canonical experiment structure.
+      </li>
+      <li>
+       Run
+       <code>
+        FGJ_ExperimentManager_v0_4
+       </code>
+       .
+      </li>
+      <li>
+       Select the folder that directly contains the strain folders.
+      </li>
+      <li>
+       Review the plate tables and QA issues.
+      </li>
+      <li>
+       Export the experiment manifest.
+      </li>
+      <li>
+       Open an image and run
+       <code>
+        FGJ_SingleImageWorkflow_v0_3
+       </code>
+       .
+      </li>
+      <li>
+       Complete the six wizard steps.
+      </li>
+      <li>
+       Save the reviewed CSV.
+      </li>
+     </ol>
+     <div class="callout info">
+      In the current version, Experiment Manager and image analysis are two separate workflows. Release 0.5 will integrate them into a single launcher.
+     </div>
+    </section>
+    <section id="estructura">
+     <span class="badge">
+      Experiment structure
+     </span>
+     <h2>
+      4. Experiment organization
+     </h2>
+     <h3>
+      Canonical structure
+     </h3>
+     <pre>ExperimentName/
+&boxvr;&boxh;&boxh; Strain_1/
+&boxv;   &boxvr;&boxh;&boxh; Replicate_1/
+&boxv;   &boxv;   &boxvr;&boxh;&boxh; 20260701/
+&boxv;   &boxv;   &boxv;   &boxur;&boxh;&boxh; IMG_3156.JPEG
+&boxv;   &boxv;   &boxvr;&boxh;&boxh; 20260702/
+&boxv;   &boxv;   &boxv;   &boxur;&boxh;&boxh; IMG_3201.JPEG
+&boxv;   &boxv;   &boxur;&boxh;&boxh; 20260703/
+&boxv;   &boxv;       &boxur;&boxh;&boxh; IMG_3250.JPEG
+&boxv;   &boxur;&boxh;&boxh; Replicate_2/
+&boxur;&boxh;&boxh; Strain_2/</pre>
+     <h3>
+      What each level represents
+     </h3>
+     <table>
+      <thead>
+       <tr>
+        <th>
+         Level
+        </th>
+        <th>
+         Meaning
+        </th>
+        <th>
+         Example
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td>
+         Selected folder
+        </td>
+        <td>
+         Experiment or strain set
+        </td>
+        <td>
+         <code>
+          Fusarium
+         </code>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         First level
+        </td>
+        <td>
+         Strain
+        </td>
+        <td>
+         <code>
+          S1
+         </code>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Second level
+        </td>
+        <td>
+         Replicate / plate
+        </td>
+        <td>
+         <code>
+          R2
+         </code>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Third level
+        </td>
+        <td>
+         Observation date
+        </td>
+        <td>
+         <code>
+          20260701
+         </code>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         File
+        </td>
+        <td>
+         Original photograph
+        </td>
+        <td>
+         <code>
+          IMG_3156.JPEG
+         </code>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+     <h3>
+      Conventions
+     </h3>
+     <ul>
+      <li>
+       Dates must strictly use
+       <code>
+        YYYYMMDD
+       </code>
+       .
+      </li>
+      <li>
+       Keeping the original camera filename is recommended.
+      </li>
+      <li>
+       Strain and replicate names may be arbitrary, but they must be consistent.
+      </li>
+      <li>
+       There must be exactly one image per date folder.
+      </li>
+      <li>
+       Empty folders are valid only if they are documented as observations without an image; they currently generate a QA alert.
+      </li>
+     </ul>
+     <div class="callout warning">
+      Selecting the correct folder is essential. Experiment Manager expects strain folders to be directly inside the selected folder.
+     </div>
+    </section>
+    <section id="experiment-manager">
+     <span class="badge">
+      Experiment Manager
+     </span>
+     <h2>
+      5. Experiment Manager
+     </h2>
+     <p>
+      Experiment Manager validates the experiment before images are analyzed.
+     </p>
+     <h3>
+      What it checks
+     </h3>
+     <ul>
+      <li>
+       presence of strain, replicate, and date folders;
+      </li>
+      <li>
+       valid and real dates;
+      </li>
+      <li>
+       empty folders;
+      </li>
+      <li>
+       unsupported files;
+      </li>
+      <li>
+       more than one image per date;
+      </li>
+      <li>
+       duplicate or inconsistent names;
+      </li>
+      <li>
+       first and last date for each plate;
+      </li>
+      <li>
+       number of observations and images.
+      </li>
+     </ul>
+     <h3>
+      Outputs
+     </h3>
+     <p>
+      Inside the selected folder it creates:
+     </p>
+     <pre>.fungigrowthj/
+&boxvr;&boxh;&boxh; experiment_manifest.csv
+&boxvr;&boxh;&boxh; experiment_qa_report.csv
+&boxur;&boxh;&boxh; experiment_summary.txt</pre>
+     <h3>
+      Manifest
+     </h3>
+     <table>
+      <thead>
+       <tr>
+        <th>
+         Field
+        </th>
+        <th>
+         Description
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td>
+         <code>
+          experiment
+         </code>
+        </td>
+        <td>
+         Root folder name.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          strain
+         </code>
+        </td>
+        <td>
+         Strain.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          replicate
+         </code>
+        </td>
+        <td>
+         Replicate or plate.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          plate_id
+         </code>
+        </td>
+        <td>
+         Strain-replicate combination.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          date_folder
+         </code>
+        </td>
+        <td>
+         Original date in YYYYMMDD format.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          observation_date
+         </code>
+        </td>
+        <td>
+         ISO date.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          primary_image
+         </code>
+        </td>
+        <td>
+         Path to the primary image.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          qa_status
+         </code>
+        </td>
+        <td>
+         PASS, REVIEW, or ERROR.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          qa_codes
+         </code>
+        </td>
+        <td>
+         Warning codes.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </section>
+    <section id="single-image">
+     <span class="badge">
+      Single image workflow
+     </span>
+     <h2>
+      6. Single-image wizard
+     </h2>
+     <p>
+      The current workflow contains six steps:
+     </p>
+     <pre>[#-----] Step 1 of 6 &mdash; Set image scale
+[##----] Step 2 of 6 &mdash; Select agar sample
+[###---] Step 3 of 6 &mdash; Detect agar region
+[####--] Step 4 of 6 &mdash; Detect colonies
+[#####-] Step 5 of 6 &mdash; Review objects
+[######] Step 6 of 6 &mdash; Export results</pre>
+     <p>
+      If the user presses
+      <strong>
+       Next
+      </strong>
+      without making the required selection, the wizard shows
+      <strong>
+       Try again
+      </strong>
+      and remains on the same step.
+     </p>
+    </section>
+    <section id="escala">
+     <span class="badge">
+      Step 1
+     </span>
+     <h2>
+      7. Set the image scale
+     </h2>
+     <h3>
+      Action
+     </h3>
+     <ol>
+      <li>
+       Choose the tool
+       <strong>
+        Straight Line
+       </strong>
+       .
+      </li>
+      <li>
+       Draw a line over a known distance.
+      </li>
+      <li>
+       Enter the value and unit.
+      </li>
+     </ol>
+     <h3>
+      Recommendation
+     </h3>
+     <p>
+      Use 10 or 20 mm instead of 1 mm to reduce positioning error.
+     </p>
+     <h3>
+      Calculations
+     </h3>
+     <pre>pixels_per_unit = line_length_px / known_distance
+unit_per_pixel = known_distance / line_length_px</pre>
+     <h3>
+      QA checks
+     </h3>
+     <ul>
+      <li>
+       the selection must be a line;
+      </li>
+      <li>
+       the distance must be greater than zero;
+      </li>
+      <li>
+       the line should not be too short;
+      </li>
+      <li>
+       pixel measurements must be calculated before calibration;
+      </li>
+      <li>
+       conversion to millimeters must be controlled.
+      </li>
+     </ul>
+    </section>
+    <section id="agar-sample">
+     <span class="badge">
+      Step 2
+     </span>
+     <h2>
+      8. Create an agar sample
+     </h2>
+     <p>
+      The user draws a small ROI over clean, representative agar.
+     </p>
+     <h3>
+      Avoid
+     </h3>
+     <ul>
+      <li>
+       colonies;
+      </li>
+      <li>
+       black marker;
+      </li>
+      <li>
+       bubbles;
+      </li>
+      <li>
+       strong reflections;
+      </li>
+      <li>
+       areas with extreme illumination.
+      </li>
+     </ul>
+     <p>
+      The sample serves two purposes:
+     </p>
+     <ol>
+      <li>
+       provides the average RGB color of the agar;
+      </li>
+      <li>
+       provides a seed point that belongs to the agar.
+      </li>
+     </ol>
+     <div class="placeholder">
+      Add screenshot: example of correct and incorrect sample
+     </div>
+    </section>
+    <section id="agar-detection">
+     <span class="badge">
+      Step 3
+     </span>
+     <h2>
+      9. Detect the agar
+     </h2>
+     <p>
+      Detection is interactive and updates in real time.
+     </p>
+     <table>
+      <thead>
+       <tr>
+        <th>
+         Parameter
+        </th>
+        <th>
+         Function
+        </th>
+        <th>
+         When to modify it
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td>
+         <code>
+          RGB color tolerance
+         </code>
+        </td>
+        <td>
+         Accepts colors similar to the sample.
+        </td>
+        <td>
+         Increase if agar is missing; reduce if background is included.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          Median radius
+         </code>
+        </td>
+        <td>
+         Reduces local noise.
+        </td>
+        <td>
+         Use low values.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          Closing iterations
+         </code>
+        </td>
+        <td>
+         Connects fragmented regions.
+        </td>
+        <td>
+         Increase if agar remains fragmented.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          Opening iterations
+         </code>
+        </td>
+        <td>
+         Removes small isolated regions.
+        </td>
+        <td>
+         Use conservatively.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          Circle offset
+         </code>
+        </td>
+        <td>
+         Expands or shrinks the ROI.
+        </td>
+        <td>
+         Negative shrinks; positive expands.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+     <h3>
+      Algorithm
+     </h3>
+     <pre>Sample ROI
+&darr;
+Mean RGB
+&darr;
+RGB color-distance mask
+&darr;
+Median + closing + opening
+&darr;
+Connected component containing the seed
+&darr;
+Fit Circle
+&darr;
+Signed circle offset
+&darr;
+Confirmed agar ROI</pre>
+     <h3>
+      Acceptance criterion
+     </h3>
+     <p>
+      The ROI should follow the usable agar region, not the outer glass edge.
+     </p>
+    </section>
+    <section id="marker-mask">
+     <span class="badge">
+      Step 4
+     </span>
+     <h2>
+      10. Generate the marker mask
+     </h2>
+     <p>
+      Within the confirmed agar ROI, FungiGrowthJ operates on the brightness component and applies
+      <code>
+       IJ_IsoData
+      </code>
+      to separate dark structures from the background.
+     </p>
+     <pre>RGB image
+&darr;
+HSB brightness
+&darr;
+Histogram inside agar ROI
+&darr;
+IJ_IsoData
+&darr;
+Dark-marker mask
+&darr;
+Binary closing
+&darr;
+Optional marker gap closure
+&darr;
+Fill holes</pre>
+     <p>
+      The workflow was designed to preserve marker-drawn contours and reduce false positives associated with broad illumination variation.
+     </p>
+     <h3>
+      Marker gap closure
+     </h3>
+     <p>
+      <strong>
+       Marker gap closure iterations
+      </strong>
+      bridges small interruptions in the dark trace before the fill stage. The default value is
+      <code>
+       0
+      </code>
+      . It should only be increased when the real contour contains short breaks that prevent a closed region from being formed.
+     </p>
+     <div class="callout warning">
+      <strong>
+       Do not confuse this with general closing:
+      </strong>
+      marker gap closure is a conservative, contour-specific correction for small breaks. It should not replace proper mask review.
+     </div>
+     <h3>
+      Manual cleaning of dark artifacts
+     </h3>
+     <p>
+      When the image contains dots, stains, or other dark structures that are not part of the marker, you can enable
+      <strong>
+       Clean dark artifacts manually before detection
+      </strong>
+      .
+     </p>
+     <ol>
+      <li>
+       FungiGrowthJ displays the binary mask used for detection.
+      </li>
+      <li>
+       The
+       <strong>
+        Paintbrush
+       </strong>
+       with black to remove from the mask the white regions corresponding to artifacts.
+      </li>
+      <li>
+       The original photograph remains intact.
+      </li>
+      <li>
+       The cleaned mask is immediately used in the subsequent detection stages.
+      </li>
+     </ol>
+     <p>
+      This feature is intended for difficult images and is not necessary for clean photographs.
+     </p>
+     <div class="callout info">
+      <strong>
+       Best practices:
+      </strong>
+      erase only clearly identifiable artifacts. Do not erase a region just because it has an irregular shape: a real colony may be irregular.
+     </div>
+     <h3>
+      Manual agar-zone mask
+     </h3>
+     <p>
+      <strong>
+       Mask agar zones manually before detection
+      </strong>
+      allows specific agar sectors to be excluded from detection without altering the photograph.
+     </p>
+     <div class="callout warning">
+      Black letters and annotations may appear in the mask. FungiGrowthJ must not automatically assume that they are colonies: they are reviewed and, when appropriate, classified as
+      <code>
+       IGN
+      </code>
+      .
+     </div>
+    </section>
+    <section id="objetos">
+     <span class="badge">
+      Step 4
+     </span>
+     <h2>
+      11. Detect and measure objects
+     </h2>
+     <p>
+      Fiji/ImageJ converts closed contours into measurable objects. Normal detection uses a minimum candidate area and may exclude objects that touch the agar ROI boundary.
+     </p>
+     <h3>
+      Initial measurements
+     </h3>
+     <ul>
+      <li>
+       area;
+      </li>
+      <li>
+       perimeter;
+      </li>
+      <li>
+       centroid;
+      </li>
+      <li>
+       circularity;
+      </li>
+      <li>
+       distance to agar center.
+      </li>
+     </ul>
+     <h3>
+      Connected-colony partition
+     </h3>
+     <p>
+      <strong>
+       Enhanced touching-colony partition
+      </strong>
+      allows objects that remained connected after segmentation to be separated. The method searches for closed interior structures within a connected object and generates independent ROIs when the geometric evidence is sufficient.
+     </p>
+     <p>
+      The parameter
+      <strong>
+       Minimum enclosed interior area
+      </strong>
+      controls the minimum size of these interior regions. Its default value is
+      <code>
+       150 px&sup2;
+      </code>
+      .
+     </p>
+     <h3>
+      Manual seed refinement
+     </h3>
+     <p>
+      When a connected colony cannot be separated correctly by automatic partitioning, a manual seed can be used. Seeds refine only the corresponding connected object; all other proposals remain unchanged.
+     </p>
+     <h3>
+      Very small candidates
+     </h3>
+     <p>
+      The option
+      <strong>
+       Detect very small / point-like colony candidates
+      </strong>
+      enables a second pass for small objects. These candidates are considered low-confidence and are sent for explicit review; they are never silently accepted.
+     </p>
+     <h3>
+      Automatic classification
+     </h3>
+     <ul>
+      <li>
+       the object closest to the agar center is proposed as the central colony;
+      </li>
+      <li>
+       the remaining objects are proposed as satellites;
+      </li>
+      <li>
+       the proposal never replaces human confirmation.
+      </li>
+     </ul>
+     <h3>
+      Alerts
+     </h3>
+     <table>
+      <thead>
+       <tr>
+        <th>
+         Code
+        </th>
+        <th>
+         Meaning
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td>
+         <code>
+          LOW_CIRC
+         </code>
+        </td>
+        <td>
+         Low circularity.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          LOW_CIRC_EDIT
+         </code>
+        </td>
+        <td>
+         Low circularity after editing.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          NEAR_EDGE
+         </code>
+        </td>
+        <td>
+         Object near the agar edge.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          AREA_OUTLIER
+         </code>
+        </td>
+        <td>
+         Atypical area.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </section>
+    <section id="revision">
+     <span class="badge">
+      Step 5
+     </span>
+     <h2>
+      12. Review and edit colonies
+     </h2>
+     <p>
+      Objects are shown from lowest to highest circularity so that suspicious cases are reviewed first. The color of an ROI primarily indicates its visual review state;
+      <strong>
+       green means visually accepted; it does not automatically mean "central"
+      </strong>
+      .
+     </p>
+     <h3>
+      Final types
+     </h3>
+     <table>
+      <thead>
+       <tr>
+        <th>
+         Code
+        </th>
+        <th>
+         Meaning
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td>
+         <code>
+          CEN
+         </code>
+        </td>
+        <td>
+         Central colony.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          SAT
+         </code>
+        </td>
+        <td>
+         Satellite colony.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          IGN
+         </code>
+        </td>
+        <td>
+         Ignore.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          DEF
+         </code>
+        </td>
+        <td>
+         Deferred review.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+     <div class="callout">
+      <strong>
+       The central colony must be explicitly confirmed.
+      </strong>
+      The central/satellite classification used in downstream calculations corresponds to the decision confirmed during review, not simply to the visual position on the plate.
+     </div>
+     <h3>
+      Edit an ROI
+     </h3>
+     <ol>
+      <li>
+       Modify the selected ROI using Fiji tools.
+      </li>
+      <li>
+       Presionar
+       <strong>
+        Update
+       </strong>
+       in ROI Manager.
+      </li>
+      <li>
+       Mark that the ROI was edited.
+      </li>
+      <li>
+       Recalculate and confirm.
+      </li>
+     </ol>
+     <h3>
+      Split a merged ROI
+     </h3>
+     <p>
+      If an ROI contains two or more colonies, use
+      <strong>
+       Split ROI into multiple colonies
+      </strong>
+      . First specify how many colonies are present, then draw each child ROI, and finally confirm the complete set. Child ROIs retain traceability to the original object.
+     </p>
+     <h3>
+      Early completion
+     </h3>
+     <p>
+      The user can preview the remaining objects. Unreviewed objects appear with
+      <code>
+       ?
+      </code>
+      . The user can then continue, jump to a specific ID, or accept the remaining proposals.
+     </p>
+     <div class="callout">
+      Ignored objects are preserved by default in ROI Manager for auditability, even though they do not appear in the scientific output.
+     </div>
+    </section>
+    <section id="mediciones">
+     <span class="badge">
+      Scientific outputs
+     </span>
+     <h2>
+      13. Measurements and CSV output
+     </h2>
+     <h3>
+      Priority columns
+     </h3>
+     <pre>image_file
+colony_id
+final_type
+area_mm2
+perimeter_mm
+equivalent_radius_mm
+equivalent_diameter_mm
+distance_to_center_mm
+circularity</pre>
+     <h3>
+      Derived
+     </h3>
+     <pre>equivalent_radius_mm = sqrt(area_mm2 / &pi;)
+equivalent_diameter_mm = 2 &times; equivalent_radius_mm</pre>
+     <h3>
+      Review fields
+     </h3>
+     <pre>proposed_type
+review_status
+review_flag
+edited_manually
+review_code
+review_note</pre>
+     <h3>
+      Metadata at the end
+     </h3>
+     <pre>scale_method
+scale_unit
+known_distance
+line_length_px
+pixels_per_unit
+agar_roi_method
+agar_roi_manual_edit
+threshold_method
+threshold_value
+software_version</pre>
+     <h3>
+      Colony ID
+     </h3>
+     <p>
+      Objects use
+      <code>
+       C001
+      </code>
+      ,
+      <code>
+       C002
+      </code>
+      ,
+      <code>
+       C003
+      </code>
+      &hellip;
+     </p>
+    </section>
+    <section id="series">
+     <span class="badge">
+      Temporal workflow
+     </span>
+     <h2>
+      14. Dates, absences, and growth
+     </h2>
+     <p>
+      The identity of each observation comes from the folder structure: strain, replicate, and date.
+     </p>
+     <h3>
+      Future observation states
+     </h3>
+     <table>
+      <thead>
+       <tr>
+        <th>
+         State
+        </th>
+        <th>
+         Area
+        </th>
+        <th>
+         Interpretation
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td>
+         <code>
+          measured
+         </code>
+        </td>
+        <td>
+         Measured from image.
+        </td>
+        <td>
+         Image exists.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          no_growth_detected
+         </code>
+        </td>
+        <td>
+         0 if there was no previous growth.
+        </td>
+        <td>
+         The plate was observed and there was no growth.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          no_change_observed
+         </code>
+        </td>
+        <td>
+         Carries forward the previous value.
+        </td>
+        <td>
+         An observation occurred, but growth was zero.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          missing
+         </code>
+        </td>
+        <td>
+         NA.
+        </td>
+        <td>
+         It is unknown what happened.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          harvested
+         </code>
+        </td>
+        <td>
+         End of follow-up.
+        </td>
+        <td>
+         The colony reached the edge and was harvested.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          excluded
+         </code>
+        </td>
+        <td>
+         NA.
+        </td>
+        <td>
+         Observation excluded.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+     <div class="callout warning">
+      Absence of an image must never be automatically interpreted as zero growth.
+     </div>
+    </section>
+    <section id="qa">
+     <span class="badge">
+      Quality assurance
+     </span>
+     <h2>
+      15. Quality Assurance Workflow
+     </h2>
+     <p>
+      FungiGrowthJ separates observation state from scientific outcome. An observation may require review even when a valid image exists, and an observation in
+      <code>
+       ERROR
+      </code>
+      must not be considered analyzed.
+     </p>
+     <h3>
+      Scientific and workflow states
+     </h3>
+     <pre>PENDING
+IN_PROGRESS
+REVIEW
+ERROR
+COMPLETED
+SKIPPED
+INTERRUPTED
+TRAVERSED</pre>
+     <table>
+      <thead>
+       <tr>
+        <th>
+         State
+        </th>
+        <th>
+         Practical interpretation
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td>
+         <code>
+          PENDING
+         </code>
+        </td>
+        <td>
+         Not yet processed.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          IN_PROGRESS
+         </code>
+        </td>
+        <td>
+         Processing in progress.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          REVIEW
+         </code>
+        </td>
+        <td>
+         Requires review or a pending human decision.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          ERROR
+         </code>
+        </td>
+        <td>
+         Processing did not finish validly. The result must not be assumed to be complete.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          COMPLETED
+         </code>
+        </td>
+        <td>
+         The observation was closed as a complete analysis.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          SKIPPED
+         </code>
+        </td>
+        <td>
+         Intentionally excluded from processing.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          INTERRUPTED
+         </code>
+        </td>
+        <td>
+         Interrupted during processing and available to resume.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <code>
+          TRAVERSED
+         </code>
+        </td>
+        <td>
+         Image traversed/validated by the workflow, but not by itself equivalent to a complete scientific analysis.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+     <h3>
+      Checkpoints
+     </h3>
+     <ol>
+      <li>
+       Experiment structure.
+      </li>
+      <li>
+       Experiment summary.
+      </li>
+      <li>
+       Image compatibility.
+      </li>
+      <li>
+       Calibration.
+      </li>
+      <li>
+       Agar ROI.
+      </li>
+      <li>
+       Marker mask.
+      </li>
+      <li>
+       Object detection.
+      </li>
+      <li>
+       Human review.
+      </li>
+      <li>
+       Measurement validation.
+      </li>
+      <li>
+       Export.
+      </li>
+     </ol>
+     <h3>
+      Batch: review images with REVIEW or ERROR status
+     </h3>
+     <p>
+      The final Batch workflow allows visual review of observations that remain in
+      <code>
+       REVIEW
+      </code>
+      or
+      <code>
+       ERROR
+      </code>
+      . The user can open the image, inspect the saved ROIs, and explicitly decide whether the observation should be set to
+      <code>
+       COMPLETED
+      </code>
+      or left in its current state.
+     </p>
+     <p>
+      This review action
+      <strong>
+       does not imply automatic reanalysis
+      </strong>
+      . It must be distinguished from rerunning the analysis.
+     </p>
+     <div class="callout warning">
+      <strong>
+       Important:
+      </strong>
+      An observation that has already been reviewed should not be analyzed again just to change its state. First verify whether persisted results and ROIs exist or use Batch visual review.
+     </div>
+     <h3>
+      Audit
+     </h3>
+     <pre>{
+  "checkpoint": "AGAR_ROI",
+  "status": "REVIEW",
+  "code": "AGAR_SIZE_REVIEW",
+  "image": "IMG_3116.JPEG",
+  "user_action": "MANUAL_ADJUSTMENT",
+  "software_version": "FGJ_SingleImage_0.3"
+}</pre>
+    </section>
+    <section id="troubleshooting">
+     <span class="badge">
+      Troubleshooting
+     </span>
+     <h2>
+      16. Common errors
+     </h2>
+     <table>
+      <thead>
+       <tr>
+        <th>
+         Problem
+        </th>
+        <th>
+         Likely cause
+        </th>
+        <th>
+         Solution
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td>
+         Black or nearly empty mask
+        </td>
+        <td>
+         Marker intensity was not adequately represented by the automatic threshold.
+        </td>
+        <td>
+         Inspect the mask and, if appropriate, adjust the detection context or image preparation.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Many unwanted dark dots
+        </td>
+        <td>
+         The photograph contains dirt, stains, or dark structures that also pass the threshold.
+        </td>
+        <td>
+         Activar
+         <strong>
+          Clean dark artifacts manually before detection
+         </strong>
+         and erase only the obvious artifacts from the mask.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         The marker has small breaks
+        </td>
+        <td>
+         The trace does not form closed regions.
+        </td>
+        <td>
+         Try
+         <strong>
+          Marker gap closure iterations
+         </strong>
+         with a low value, for example 1, and review the result.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         A large region contains multiple colonies
+        </td>
+        <td>
+         Colonies or their contours remained connected.
+        </td>
+        <td>
+         Activar
+         <strong>
+          Enhanced touching-colony partition
+         </strong>
+         ; if this is still insufficient, use manual seeds or
+         <strong>
+          Split ROI
+         </strong>
+         .
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Very small objects are detected
+        </td>
+        <td>
+         They may be small colonies or artifacts.
+        </td>
+        <td>
+         Utilizar
+         <strong>
+          Detect very small / point-like colony candidates
+         </strong>
+         only when necessary and review those objects explicitly.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Letters or annotations are detected
+        </td>
+        <td>
+         They are dark structures that are valid for segmentation.
+        </td>
+        <td>
+         Review them as objects and classify them as
+         <code>
+          IGN
+         </code>
+         when they are not colonies.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         The proposed central colony is not correct
+        </td>
+        <td>
+         The automatic proposal is based on position relative to the agar center.
+        </td>
+        <td>
+         During review, explicitly select
+         <code>
+          central
+         </code>
+         for the correct ROI.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         An ROI contains multiple colonies
+        </td>
+        <td>
+         Object merging during segmentation.
+        </td>
+        <td>
+         Use
+         <strong>
+          Enhanced touching-colony partition
+         </strong>
+         , manual seeds or
+         <strong>
+          Split ROI
+         </strong>
+         .
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Batch shows
+         <code>
+          ERROR
+         </code>
+        </td>
+        <td>
+         Processing did not reach a completed state.
+        </td>
+        <td>
+         Do not assume that the result is closed. Review the observation visually or reanalyze it only if truly necessary.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Batch leaves an observation in
+         <code>
+          REVIEW
+         </code>
+        </td>
+        <td>
+         The observation requires a human decision.
+        </td>
+        <td>
+         Use the Batch review function and explicitly decide
+         <code>
+          COMPLETED
+         </code>
+         or leave it in review.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+     <div class="callout info">
+      <strong>
+       General rule:
+      </strong>
+      when an image requires manual intervention, that intervention must be documented in review and must not alter the original photograph.
+     </div>
+    </section>
+    <section id="arquitectura">
+     <span class="badge">
+      Architecture
+     </span>
+     <h2>
+      17. Current architecture
+     </h2>
+     <pre>FungiGrowthJ/
+&boxvr;&boxh;&boxh; app/
+&boxvr;&boxh;&boxh; current/
+&boxv;   &boxvr;&boxh;&boxh; workflows/
+&boxv;   &boxur;&boxh;&boxh; modules/
+&boxvr;&boxh;&boxh; releases/
+&boxvr;&boxh;&boxh; archive/
+&boxv;   &boxvr;&boxh;&boxh; prototypes/
+&boxv;   &boxur;&boxh;&boxh; legacy-releases/
+&boxvr;&boxh;&boxh; docs/
+&boxvr;&boxh;&boxh; examples/
+&boxvr;&boxh;&boxh; tests/
+&boxvr;&boxh;&boxh; notebooks/
+&boxvr;&boxh;&boxh; projects/
+&boxvr;&boxh;&boxh; MODULE_REGISTRY.md
+&boxvr;&boxh;&boxh; CHANGELOG.md
+&boxvr;&boxh;&boxh; README.md
+&boxur;&boxh;&boxh; .gitignore</pre>
+     <p>
+      Current files are located only in
+      <code>
+       current/
+      </code>
+      . The contents of
+      <code>
+       archive/
+      </code>
+      are retained as history and must not be used as the basis for new changes.
+     </p>
+    </section>
+    <section id="example">
+     <span class="badge">
+      Example dataset
+     </span>
+     <h2>
+      18. Example experiment for GitHub
+     </h2>
+     <p>
+      The public version should include a small set of test images with the complete structure.
+     </p>
+     <pre>examples/
+&boxur;&boxh;&boxh; Example_Experiment/
+    &boxvr;&boxh;&boxh; README.md
+    &boxvr;&boxh;&boxh; Fusarium/
+    &boxv;   &boxvr;&boxh;&boxh; S1/
+    &boxv;   &boxv;   &boxvr;&boxh;&boxh; R1/
+    &boxv;   &boxv;   &boxv;   &boxvr;&boxh;&boxh; 20260701/
+    &boxv;   &boxv;   &boxv;   &boxv;   &boxur;&boxh;&boxh; IMG_0001.JPG
+    &boxv;   &boxv;   &boxv;   &boxur;&boxh;&boxh; 20260702/
+    &boxv;   &boxv;   &boxv;       &boxur;&boxh;&boxh; IMG_0002.JPG
+    &boxv;   &boxv;   &boxur;&boxh;&boxh; R2/
+    &boxv;   &boxur;&boxh;&boxh; S2/
+    &boxur;&boxh;&boxh; expected_outputs/
+        &boxvr;&boxh;&boxh; experiment_manifest.csv
+        &boxvr;&boxh;&boxh; experiment_qa_report.csv
+        &boxur;&boxh;&boxh; results.csv</pre>
+     <p>
+      The goal is for a user to clone the repository, open the example, and reproduce the analysis in a few minutes.
+     </p>
+    </section>
+    <section id="roadmap">
+     <span class="badge">
+      Final release
+     </span>
+     <h2>
+      19. Final release status
+     </h2>
+     <table>
+      <thead>
+       <tr>
+        <th>
+         Component
+        </th>
+        <th>
+         Version
+        </th>
+        <th>
+         State
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td>
+         Single Image workflow
+        </td>
+        <td>
+         <code>
+          0.3.74
+         </code>
+        </td>
+        <td>
+         Final
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Batch workflow
+        </td>
+        <td>
+         <code>
+          0.2.25
+         </code>
+        </td>
+        <td>
+         Final
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Experiment Manager
+        </td>
+        <td>
+         Included in release
+        </td>
+        <td>
+         Integrated
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Launcher
+        </td>
+        <td>
+         Included in release
+        </td>
+        <td>
+         Integrated
+        </td>
+       </tr>
+      </tbody>
+     </table>
+     <div class="callout">
+      <strong>
+       This documentation corresponds to the release being published.
+      </strong>
+      The functions described here constitute the final documented functional set of FungiGrowthJ for this version.
+     </div>
+    </section>
+    <section id="reproducibilidad">
+     <span class="badge">
+      Reproducibility
+     </span>
+     <h2>
+      20. Reproducibility and publication
+     </h2>
+     <p>
+      The public release should distribute the software and documentation as a coherent set.
+     </p>
+     <ul>
+      <li>
+       final-release launcher and modules;
+      </li>
+      <li>
+       updated user manual;
+      </li>
+      <li>
+       functional specification and architecture;
+      </li>
+      <li>
+       QA Workflow;
+      </li>
+      <li>
+       example experiment;
+      </li>
+      <li>
+       expected results or reference data when applicable;
+      </li>
+      <li>
+       README;
+      </li>
+      <li>
+       CHANGELOG;
+      </li>
+      <li>
+       MODULE_REGISTRY;
+      </li>
+      <li>
+       LICENSE;
+      </li>
+      <li>
+       CITATION.cff;
+      </li>
+      <li>
+       CONTRIBUTING.md;
+      </li>
+      <li>
+       biological analysis notebook separate from the measurement software.
+      </li>
+     </ul>
+     <div class="callout">
+      The separation between
+      <strong>
+       measurement
+      </strong>
+      and
+      <strong>
+       biological analysis
+      </strong>
+      is part of the reproducible design: FungiGrowthJ generates measurements and traceability; the notebook performs subsequent summaries, statistical analyses, and figures.
+     </div>
+     <p class="small">
+      Last manual update: September 2026.
+     </p>
+    </section>
+    <section id="release-note">
+     <span class="badge">
+      Release note
+     </span>
+     <h2>
+      Final release: documented behavior
+     </h2>
+     <div class="grid-2">
+      <div class="card">
+       <h3>
+        Detection
+       </h3>
+       <p>
+        <code>
+         IJ_IsoData
+        </code>
+        , automatic illumination correction, closing, optional gap closure, manual artifact cleaning, and partitioning of connected objects.
+       </p>
+      </div>
+      <div class="card">
+       <h3>
+        Review
+       </h3>
+       <p>
+        Classification
+        <code>
+         CEN
+        </code>
+        ,
+        <code>
+         SAT
+        </code>
+        ,
+        <code>
+         IGN
+        </code>
+        and
+        <code>
+         DEF
+        </code>
+        , ROI editing, Split ROI, manual seeds, and human confirmation.
+       </p>
+      </div>
+      <div class="card">
+       <h3>
+        Persistence
+       </h3>
+       <p>
+        CSV results, automatic/final ROIs, and processing metadata for traceability.
+       </p>
+      </div>
+      <div class="card">
+       <h3>
+        Batch
+       </h3>
+       <p>
+        Persistent states, pause/resume, visual review of
+        <code>
+         REVIEW
+        </code>
+        /
+        <code>
+         ERROR
+        </code>
+        and explicit closure of completed observations.
+       </p>
+      </div>
+     </div>
+    </section>
+   </main>
+  </div>
+  <footer>
+   FungiGrowthJ &mdash; Consolidated user manual, methodology, and development record. Version 0.3.
+  </footer>
+ </body>
+</html>
