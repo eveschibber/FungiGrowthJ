@@ -1,3 +1,11 @@
+
+<p align="center">
+  <img src="docs/FungiGrowthJ_banner.png"
+       alt="FungiGrowthJ — ImageJ plugin for fungal growth analysis"
+       width="100%">
+</p>
+
+# FungiGrowthJ
 # FungiGrowthJ
 
 <p align="center">
