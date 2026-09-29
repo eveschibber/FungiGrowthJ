@@ -5,7 +5,7 @@
        width="100%">
 </p>
 
-# FungiGrowthJ
+
 # FungiGrowthJ
 
 <p align="center">
