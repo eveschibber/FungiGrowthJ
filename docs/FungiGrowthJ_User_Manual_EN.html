@@ -1,0 +1,509 @@
+html<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>FungiGrowthJ — Complete User Manual v0.3.74</title><style>
+:root{--bg:#f4f7f4;--paper:#fff;--ink:#203027;--muted:#66746b;--accent:#2f7d4a;--accent2:#dfeee4;--line:#d9e3dc;--warn:#fff6df;--warnline:#d7a62a;--info:#eef5fb;--infoline:#4b7ca8;--danger:#faecea;--dangerline:#a8433d;--code:#17201a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}header{background:linear-gradient(135deg,#173f28,#2f7d4a);color:#fff;padding:64px 24px 54px}.header-inner{max-width:1240px;margin:auto}.kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;opacity:.84;margin-bottom:10px}h1{font-size:clamp(2.4rem,6vw,4.8rem);line-height:1;margin:0 0 18px}.subtitle{max-width:900px;font-size:1.18rem;opacity:.95}.version{display:inline-block;margin-top:24px;padding:8px 14px;border:1px solid rgba(255,255,255,.35);border-radius:999px;font-size:.9rem}.layout{max-width:1340px;margin:0 auto;display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;padding:34px 24px 80px}nav{position:sticky;top:18px;align-self:start;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 8px 24px rgba(20,55,33,.06);max-height:calc(100vh - 36px);overflow:auto}nav h2{font-size:1rem;margin:0 0 12px}nav a{display:block;color:var(--ink);text-decoration:none;padding:7px 9px;border-radius:8px;font-size:.91rem}nav a:hover{background:var(--accent2);color:var(--accent)}main{min-width:0}section{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:34px;margin-bottom:26px;box-shadow:0 8px 24px rgba(20,55,33,.045)}h2{font-size:1.9rem;line-height:1.2;margin:0 0 18px}h3{font-size:1.28rem;margin:28px 0 10px;color:#244e33}h4{font-size:1.04rem;margin:22px 0 8px}p{margin:10px 0;max-width:100ch}ul,ol{padding-left:1.3rem}li{margin:.35rem 0;max-width:100ch}code{background:#edf2ee;padding:.14em .38em;border-radius:5px;font-family:Consolas,Monaco,monospace;font-size:.92em}pre{background:var(--code);color:#eaf5ed;padding:18px;border-radius:12px;overflow:auto;line-height:1.5}.callout{border-left:4px solid var(--accent);background:var(--accent2);padding:16px 18px;border-radius:10px;margin:20px 0}.warning{border-left-color:var(--warnline);background:var(--warn)}.info{border-left-color:var(--infoline);background:var(--info)}.danger{border-left-color:var(--dangerline);background:var(--danger)}table{width:100%;border-collapse:collapse;margin:18px 0 24px;font-size:.92rem}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}th{background:#edf5ef}.badge{display:inline-block;padding:4px 9px;border-radius:999px;background:var(--accent2);color:var(--accent);font-size:.78rem;font-weight:700}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card{border:1px solid var(--line);border-radius:13px;padding:18px;background:#fbfdfb}.card h3,.card h4{margin-top:0}.step{display:grid;grid-template-columns:64px 1fr;gap:18px;padding:22px 0;border-top:1px solid var(--line)}.step:first-child{border-top:0}.stepn{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font-weight:700;font-size:1.15rem}.formula{background:#f7faf8;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:Consolas,Monaco,monospace;margin:12px 0}.small{font-size:.9rem;color:var(--muted)}.note{color:var(--muted);font-size:.94rem}.tocgroup{font-weight:700;margin:10px 0 4px;color:#2e513e}footer{max-width:1240px;margin:0 auto 50px;padding:0 24px;color:var(--muted);font-size:.9rem}@media(max-width:980px){.layout{grid-template-columns:1fr}nav{position:relative;top:auto;max-height:none}.grid2,.grid3{grid-template-columns:1fr}}
+</style></head><body>
+<header><div class="header-inner">
+<div class="kicker">Open scientific software for Fiji/ImageJ</div>
+<h1>FungiGrowthJ</h1>
+<div class="subtitle">Complete user manual for image analysis, colony review, manual correction, temporal experiment processing, scientific outputs, and reproducible traceability.</div>
+<div class="version">Final practical release documentation · FGJ_SingleImage 0.3.74 · FGJ_Batch 0.2.25 · September 2026</div>
+</div></header>
+<div class="layout">
+<nav><h2>Contents</h2><a href="#intro">1. Introduction</a><a href="#installation">2. Installation</a><a href="#image-requirements">3. Image requirements and acquisition</a><a href="#structure">4. Experiment structure</a><a href="#launcher">5. Starting FungiGrowthJ</a><a href="#workflow">6. Complete workflow</a><a href="#scale">7. Spatial calibration</a><a href="#agar-sample">8. Select a representative agar sample</a><a href="#agar-roi">9. Agar ROI detection and adjustment</a><a href="#origin">10. Inoculation origin</a><a href="#detection-settings">11. Detection and review settings</a><a href="#mask">12. Detection mask and preprocessing</a><a href="#artifact-cleaning">13. Manual dark-artifact cleaning</a><a href="#partition">14. Touching-colony partition</a><a href="#detect">15. Colony detection</a><a href="#review">16. ROI Review and classification</a><a href="#edit">17. Edit / replace ROI</a><a href="#cut">18. Cut / Trim ROI</a><a href="#split">19. Split ROI into multiple colonies</a><a href="#small-candidates">20. Very small / point-like candidates</a><a href="#batch">21. Batch, persistent state, and restart</a><a href="#files">22. Generated files</a><a href="#csv">23. Output CSV structure</a><a href="#glossary">24. Complete output-variable glossary</a><a href="#formulas">25. Formulas and biological interpretation</a><a href="#which-variable">26. Choosing variables for biological questions</a><a href="#qa">27. Quality assurance</a><a href="#troubleshooting">28. Troubleshooting</a><a href="#repro">29. Reproducibility and traceability</a></nav>
+<main>
+<section id="intro"><span class="badge">Overview</span><h2>1. Introduction</h2>
+<p><strong>FungiGrowthJ</strong> is a Fiji/ImageJ workflow for organizing, detecting, reviewing, measuring, and exporting fungal colony observations from digital Petri-dish photographs. It is designed for longitudinal experiments in which the same biological replicate is photographed on multiple dates.</p>
+<p>The software deliberately separates automated image processing from scientific review. FungiGrowthJ can propose agar boundaries, colony objects, and central/satellite classifications, but the user retains control over decisions that affect the scientific result.</p>
+<div class="callout"><strong>Core principle:</strong> automate repetitive image processing without hiding methodological decisions. Critical operations remain visible, editable, and traceable in the exported results.</div>
+<div class="grid2"><div class="card"><h3>Single Image</h3><p>Complete analysis of one photograph, including calibration, agar selection, detection, review, manual correction, and export.</p></div><div class="card"><h3>Experiment / Batch</h3><p>Processes a structured experiment across strains, replicates, and dates while persisting status, failures, review states, and results.</p></div></div>
+</section>
+<section id="installation"><span class="badge">Setup</span><h2>2. Installation</h2>
+<p>The recommended installation keeps the user-facing launcher separate from internal modules.</p>
+<pre>Fiji/
+└── plugins/
+    └── FungiGrowthJ/
+        ├── FungiGrowthJ.js
+        └── modules/
+            ├── FGJ_SingleImage.js
+            ├── FGJ_Batch.js
+            ├── FGJ_ExperimentManager.js
+            ├── FGJ_UI.js
+            ├── FGJ_QA.js
+            ├── FGJ_CSV.js
+            ├── FGJ_Common.js
+            ├── FGJ_Helpers.js
+            ├── FGJ_IDs.js
+            └── FGJ_Version.js</pre>
+<div class="callout info"><strong>User entry point:</strong> run <code>FungiGrowthJ.js</code>. The files under <code>modules/</code> implement the workflow and are not normally launched manually.</div>
+</section>
+<section id="image-requirements"><span class="badge">Acquisition</span><h2>3. Image requirements and acquisition</h2>
+<p>FungiGrowthJ is designed for photographs in which the colony boundaries can be segmented from the surrounding agar and, in the current workflow, are commonly represented by dark marker contours.</p>
+<div class="grid2"><div class="card"><h3>Recommended</h3><ul><li>Same camera and resolution through a longitudinal experiment whenever possible.</li><li>Stable plate positioning and lighting.</li><li>High enough contrast to distinguish marker contours from agar.</li><li>Minimal glare and reflections.</li><li>Original files retained without overwriting.</li></ul></div><div class="card"><h3>Avoid</h3><ul><li>Strong shadows crossing the plate.</li><li>Large reflections inside the agar region.</li><li>Unknown changes in zoom or camera geometry without recalibration.</li><li>Heavy compression when the marker boundary is already faint.</li><li>Multiple images in one date folder when the experiment expects one image per date.</li></ul></div></div>
+<div class="callout warning"><strong>Missing image is not zero growth.</strong> An absent photograph is an unavailable observation, not evidence that colony area was zero.</div>
+</section>
+<section id="structure"><span class="badge">Experiment organization</span><h2>4. Experiment structure</h2>
+<pre>Experiment/
+└── Fusarium/
+    ├── S1/
+    │   ├── R1/
+    │   │   ├── 20260701/
+    │   │   │   └── IMG_3167.JPEG
+    │   │   └── 20260702/
+    │   │       └── IMG_3038.JPEG
+    │   └── R2/
+    └── S2/
+        └── ...</pre>
+<table><thead><tr><th>Level</th><th>Meaning</th><th>Recommendation</th></tr></thead><tbody>
+<tr><td>Root folder</td><td>Experiment or experiment subset.</td><td>Do not mix independent experiments in the same root.</td></tr>
+<tr><td>Strain</td><td>Strain / isolate / treatment identifier.</td><td>Keep names consistent across dates.</td></tr>
+<tr><td>Replicate</td><td>Biological replicate / plate.</td><td>Use stable identifiers such as R1, R2, R3.</td></tr>
+<tr><td>YYYYMMDD</td><td>Observation date.</td><td>Exactly eight digits.</td></tr>
+<tr><td>Image</td><td>Original photograph.</td><td>Prefer one primary image per date.</td></tr>
+</tbody></table>
+</section>
+<section id="launcher"><span class="badge">Starting the software</span><h2>5. Starting FungiGrowthJ</h2>
+<p>The launcher provides the entry into single-image analysis or an organized experiment/batch workflow.</p>
+<table><thead><tr><th>Mode</th><th>Use</th></tr></thead><tbody><tr><td><strong>Single image</strong></td><td>Development, testing, isolated measurements, or one-off images.</td></tr><tr><td><strong>Experiment / Batch</strong></td><td>Longitudinal experiments or collections of organized images.</td></tr></tbody></table>
+<p>For a new experiment, validate the folder structure before processing the images. Experiment management and image analysis should be treated as separate checkpoints.</p>
+</section>
+<section id="workflow"><span class="badge">Step-by-step</span><h2>6. Complete workflow</h2>
+<div class="step"><div class="stepn">1</div><div><h3>Set image scale</h3><p>Calibrate pixels to a physical unit such as mm.</p></div></div>
+<div class="step"><div class="stepn">2</div><div><h3>Select representative agar sample</h3><p>Choose clean agar from the current photograph to characterize local plate appearance.</p></div></div>
+<div class="step"><div class="stepn">3</div><div><h3>Detect and confirm the agar ROI</h3><p>Adjust the interactive agar detection until the useful agar region is represented.</p></div></div>
+<div class="step"><div class="stepn">4</div><div><h3>Set detection and review parameters</h3><p>Configure thresholding, gap closure, artifact cleaning, partitioning, candidate area, boundary exclusion, and review options.</p></div></div>
+<div class="step"><div class="stepn">5</div><div><h3>Detect, review, correct, and classify colonies</h3><p>Review candidates, edit ROIs, Cut / Trim, replace manually, or Split ROI when required.</p></div></div>
+<div class="step"><div class="stepn">6</div><div><h3>Save and export</h3><p>Write the image-level CSV, persist review decisions and ROI information, and advance or return to Batch.</p></div></div>
+</section>
+<section id="scale"><span class="badge">Step 1</span><h2>7. Spatial calibration</h2>
+<p>Spatial calibration converts image measurements from pixels into a physical unit. Without a valid calibration, the image still contains useful raw geometry, but physical values such as <code>area_mm2</code> and <code>perimeter_mm</code> cannot be interpreted in millimetres.</p>
+<h3>Batch calibration policies</h3>
+<table><thead><tr><th>Policy</th><th>Behavior</th><th>Use when</th></tr></thead><tbody>
+<tr><td><strong>Global calibration for entire experiment</strong></td><td>The first accepted calibration is reused for subsequent images.</td><td>Image geometry and acquisition settings are stable.</td></tr>
+<tr><td><strong>Recalibrate every image</strong></td><td>Every photograph gets a new line calibration.</td><td>Resolution, camera height, zoom, or framing can vary.</td></tr>
+<tr><td><strong>Ask before each image</strong></td><td>Allows the user to decide whether to reuse or recalibrate at each image.</td><td>Mixed acquisition conditions.</td></tr>
+</tbody></table>
+<h3>Procedure</h3><ol><li>Select Fiji's <strong>Straight Line</strong> tool.</li><li>Draw the line over a known distance.</li><li>Enter the known value and unit.</li><li>Prefer a relatively long known distance, such as 10–20 mm, when available, to reduce relative endpoint-placement error.</li></ol>
+<div class="formula">pixels_per_unit = line_length_px / known_distance</div><div class="formula">unit_per_pixel = known_distance / line_length_px</div>
+<div class="callout warning">Do not treat a line calibration as transferable across images when the image geometry can change.</div>
+</section>
+<section id="agar-sample"><span class="badge">Step 2</span><h2>8. Select a representative agar sample</h2>
+<p>The agar sample is a local reference for the current photograph. It is not a biological measurement and it should not be selected from a colony, marker trace, strong reflection, or edge artifact.</p>
+<h3>Select</h3><ul><li>clean agar;</li><li>representative illumination;</li><li>away from colonies;</li><li>away from black marker;</li><li>away from bubbles and strong reflections;</li><li>inside the useful agar region.</li></ul>
+<p>FungiGrowthJ uses the average RGB appearance of this sample as the basis for color-similarity detection of the agar region.</p>
+<div class="callout info"><strong>Practical rule:</strong> when the agar ROI is difficult to obtain even after adjusting the main tolerance parameter, select a better agar sample rather than forcing several morphological sliders to extreme values.</div>
+</section>
+<section id="agar-roi"><span class="badge">Step 3</span><h2>9. Agar ROI detection and adjustment</h2>
+<p>The interactive agar screen estimates the useful plate region and allows controlled adjustment before colony detection begins.</p>
+<table><thead><tr><th>Control</th><th>Function</th><th>Typical use</th></tr></thead><tbody>
+<tr><td><code>RGB color tolerance</code></td><td>Color-distance threshold around the agar sample.</td><td>First parameter to adjust. Increase if agar is missing; reduce if background enters.</td></tr>
+<tr><td><code>Median radius</code></td><td>Local smoothing of the color mask.</td><td>Use conservatively to reduce noise.</td></tr>
+<tr><td><code>Closing iterations</code></td><td>Connects fragmented regions.</td><td>Useful when the agar mask is broken into pieces.</td></tr>
+<tr><td><code>Opening iterations</code></td><td>Removes small isolated regions.</td><td>Use carefully; aggressive opening can remove valid agar.</td></tr>
+<tr><td><code>Circle offset (%)</code></td><td>Expands or contracts the final fitted plate ROI.</td><td>Small final boundary correction.</td></tr>
+<tr><td><code>Live preview</code></td><td>Refreshes the mask while parameters change.</td><td>Normally keep enabled during adjustment.</td></tr>
+<tr><td><code>Reselect agar sample</code></td><td>Returns to the sampling step.</td><td>Use when the current sample is not representative.</td></tr>
+</tbody></table>
+<p>The accepted agar ROI should follow the <strong>usable agar region</strong>, not the outer glass edge.</p>
+<div class="callout warning">A slightly imperfect image should not be “rescued” by extreme slider values. Re-select the sample when the underlying color reference is poor.</div>
+</section>
+<section id="origin"><span class="badge">Optional spatial reference</span><h2>10. Inoculation origin</h2>
+<p>When enabled, the user marks the actual inoculation point in the current photograph. This provides a biological reference for spatial distribution that is often more meaningful than the geometric center of the plate.</p>
+<h3>Procedure</h3><ol><li>Select the <strong>Point</strong> tool.</li><li>Click the visible inoculation origin in the current image.</li><li>Confirm the point.</li></ol>
+<p>The recorded position can be used to calculate <code>distance_to_inoculation_origin_mm</code> and <code>angle_from_inoculation_origin_deg</code> for detected colonies.</p>
+<div class="callout warning"><strong>Per-image reference:</strong> the inoculation origin is marked separately in each image. Do not assume that the same pixel coordinate remains valid if the plate moves or rotates between dates.</div>
+</section>
+<section id="detection-settings"><span class="badge">Step 4</span><h2>11. Detection and review settings</h2>
+<p>The current Single Image workflow groups the principal controls under a detection and review settings screen. Defaults are intended for normal images; change a parameter only when the photograph requires it.</p>
+<h3>Detection controls</h3>
+<table><thead><tr><th>Control</th><th>Role</th><th>Default / note</th></tr></thead><tbody>
+<tr><td><code>Binary closing iterations</code></td><td>Connects short gaps in the binary detection mask.</td><td>Current default: 1.</td></tr>
+<tr><td><code>Marker gap closure iterations</code></td><td>Conservative correction for short breaks in dark marker contours before Fill Holes.</td><td>Current default: 0; use only when needed.</td></tr>
+<tr><td><code>Clean dark artifacts manually before detection</code></td><td>Opens a binary-mask cleaning step before candidate detection.</td><td>Off by default.</td></tr>
+<tr><td><code>Artifact eraser brush size (pixels)</code></td><td>Brush diameter used on the detection mask.</td><td>Current default: 12 px.</td></tr>
+<tr><td><code>Enhanced touching-colony partition</code></td><td>Attempts to separate connected colony contours.</td><td>Enable for images with touching/connected objects.</td></tr>
+<tr><td><code>Minimum enclosed interior area</code></td><td>Minimum interior structure considered by the connected-colony partition routine.</td><td>Current default: 150 px².</td></tr>
+<tr><td><code>Minimum candidate area</code></td><td>Lower size bound for the normal particle pass.</td><td>Current default: 350 px².</td></tr>
+<tr><td><code>Maximum candidate area</code></td><td>Upper bound for candidates.</td><td>0 = unlimited.</td></tr>
+<tr><td><code>Detect very small / point-like colony candidates</code></td><td>Adds an explicitly reviewed low-confidence second pass.</td><td>Off by default.</td></tr>
+<tr><td><code>Minimum very-small candidate area</code></td><td>Lower bound for the very-small pass.</td><td>Current default: 20 px².</td></tr>
+<tr><td><code>Exclude objects touching agar ROI boundary</code></td><td>Suppresses boundary-touching candidates.</td><td>On by default.</td></tr>
+<tr><td><code>Mask agar zones manually before detection</code></td><td>Allows user-defined agar sectors to be excluded from detection.</td><td>Off by default.</td></tr>
+</tbody></table>
+<h3>Review controls</h3>
+<table><thead><tr><th>Control</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>Low-circularity alert threshold (0–1)</code></td><td>Flags unusually low circularity for review. Current default: 0.60.</td></tr>
+<tr><td><code>Review only alerted objects</code></td><td>Restricts the review queue to flagged objects when enabled.</td></tr>
+<tr><td><code>Remove ignored ROIs from ROI Manager after review</code></td><td>Controls whether ignored ROIs remain visible in ROI Manager. Keeping them is generally preferable for auditability.</td></tr>
+</tbody></table>
+</section>
+<section id="mask"><span class="badge">Segmentation</span><h2>12. Detection mask and preprocessing</h2>
+<p>Within the confirmed agar ROI, FungiGrowthJ builds a binary detection mask from the image signal. The mask represents the regions that will be considered during object detection and can be further refined before candidate extraction.</p>
+<pre>RGB image
+↓
+Brightness / thresholding context
+↓
+Binary detection mask
+↓
+Binary closing
+↓
+Optional gap closure
+↓
+Fill holes
+↓
+Particle/candidate detection</pre>
+<h3>Automatic illumination handling</h3><p>The current workflow evaluates broad, low-frequency brightness variation and applies correction only when a substantial illumination gradient is detected. This is intended to reduce false segmentation caused by uneven illumination without changing the original image.</p>
+<h3>Marker gap closure</h3><p>The parameter <code>Marker gap closure iterations</code> is a conservative correction for short interruptions in dark contours before Fill Holes. It is useful when the experimental boundary is represented by a dark trace; the underlying detection mask remains a general-purpose binary mask that can also be edited or masked elsewhere.</p>
+<div class="callout warning"><strong>Closing vs marker-gap closure:</strong> general binary closing and marker-gap closure serve related but distinct purposes. Marker-gap closure is a targeted correction for small dark-trace gaps.</div>
+</section>
+<section id="artifact-cleaning"><span class="badge">Manual correction</span><h2>13. Manual dark-artifact cleaning</h2>
+<p>When the image contains dark dots, stains, dust, annotations, or other non-marker structures that pass thresholding, the detection mask can be cleaned before candidate detection.</p>
+<h3>Procedure</h3><ol><li>Enable <strong>Clean dark artifacts manually before detection</strong>.</li><li>FungiGrowthJ displays the binary mask used for detection.</li><li>Use the <strong>Paintbrush</strong> with black to erase white mask regions that correspond to unwanted dark artifacts.</li><li>Do not edit the source photograph.</li><li>Close/accept the cleaned mask so subsequent detection uses the corrected mask.</li></ol>
+<p>The manual eraser changes the <strong>binary detection mask only</strong>. The original photograph remains unchanged.</p>
+<div class="callout info"><strong>Best practice:</strong> erase only clearly identifiable artifacts. Irregularity by itself is not evidence of an artifact: real colonies can have irregular boundaries.</div>
+<h3>Audit</h3><p>Where supported, the cleaned detection mask can be retained as <code>dark_artifact_cleanup_mask.tif</code> so the intervention is inspectable.</p>
+</section>
+<section id="partition"><span class="badge">Connected objects</span><h2>14. Touching-colony partition</h2>
+<p>Two or more nearby colonies can remain connected after the marker is thresholded. The current workflow includes <strong>Enhanced touching-colony partition</strong> to recover separate regions when the geometric evidence is adequate.</p>
+<h3>How it works conceptually</h3><p>The routine searches for enclosed internal structures within a connected candidate and can use these to create independent ROIs. The user can then review the resulting proposals.</p>
+<h3>Parameter</h3><p><code>Minimum enclosed interior area</code> defines how small an interior structure can be before it is ignored by the partition routine. The current default is 150 px².</p>
+<div class="callout warning">Automatic partition is a proposal, not a biological decision. Always review the resulting ROIs before export.</div>
+</section>
+
+<section id="detect"><span class="badge">Object detection</span><h2>15. Colony detection</h2>
+<p>After preprocessing, Fiji/ImageJ converts closed contours into candidate ROIs and calculates the initial measurements used by the review interface.</p>
+<h3>Initial measurements</h3><ul><li>area;</li><li>perimeter;</li><li>centroid;</li><li>circularity;</li><li>position relative to the agar center;</li><li>ellipse/Feret geometry;</li><li>shape metrics such as solidity and convexity.</li></ul>
+<h3>Automatic central/satellite proposal</h3><p>The object closest to the geometric center of the agar is proposed as the central colony. Other candidates are proposed as satellites. This proposal is intentionally revisable.</p>
+<div class="callout warning"><strong>Central is not the same as green.</strong> Review colors indicate visual/review state. Green acceptance does not by itself mean that an object is the central colony.</div>
+<h3>Alerts</h3><table><thead><tr><th>Alert</th><th>Meaning</th></tr></thead><tbody><tr><td><code>LOW_CIRC</code></td><td>Low circularity before editing.</td></tr><tr><td><code>LOW_CIRC_EDIT</code></td><td>Low circularity after editing.</td></tr><tr><td><code>NEAR_EDGE</code></td><td>Object is near the agar boundary.</td></tr><tr><td><code>AREA_OUTLIER</code></td><td>Unusual object area.</td></tr></tbody></table>
+<p>Low circularity is a <strong>review flag</strong>, not an automatic rejection criterion. A biologically real colony may be elongated or irregular.</p>
+</section>
+<section id="review"><span class="badge">Step 5</span><h2>16. ROI Review and classification</h2>
+<p>ROI Review is the principal human-validation stage. Objects are presented for confirmation, reclassification, editing, or exclusion.</p>
+<h3>Review color states</h3><table><thead><tr><th>Color</th><th>Meaning</th></tr></thead><tbody><tr><td>Red</td><td>Active object / current review target.</td></tr><tr><td>Yellow</td><td>Pending review.</td></tr><tr><td>Green</td><td>Accepted review state.</td></tr><tr><td>Gray</td><td>Ignored object.</td></tr><tr><td>Cyan</td><td>Newly created split/child region.</td></tr></tbody></table>
+<div class="callout warning"><strong>Color is not biological classification.</strong> In particular, green means accepted, not “central.”</div>
+<h3>Final classification choices</h3><table><thead><tr><th>Choice</th><th>Final meaning</th><th>Use</th></tr></thead><tbody><tr><td><strong>Keep automatic proposal</strong></td><td>Retains the proposal.</td><td>When the automatic decision is acceptable.</td></tr><tr><td><strong>central</strong></td><td>Confirms the central colony.</td><td>Use for the colony that should be treated as central in downstream analysis.</td></tr><tr><td><strong>satellite</strong></td><td>Confirms a satellite colony.</td><td>Use for independently detected satellite colonies.</td></tr><tr><td><strong>ignore</strong></td><td>Marks the object as non-scientific / excluded.</td><td>Text, stains, artifacts, false positives.</td></tr><tr><td><strong>defer</strong></td><td>Defers the decision.</td><td>Use when the classification cannot be resolved during the current review.</td></tr></tbody></table>
+<div class="callout"><strong>Safe default:</strong> if the user does not change the classification control, <strong>Save and continue</strong> preserves the automatic proposal; an untouched object does not silently become ignored.</div>
+<h3>Review actions available from an object</h3><ul><li>Save and continue.</li><li>Edit/review the object again.</li><li>Cut / trim the automatic ROI.</li><li>Replace the automatic ROI with a manually drawn ROI.</li><li>Split the ROI into multiple colonies.</li><li>Preview remaining objects.</li><li>Finish the review.</li></ul>
+</section>
+<section id="edit"><span class="badge">Manual geometry</span><h2>17. Edit / replace ROI</h2>
+<h3>Edit an existing ROI</h3><p>When the automatic contour is close but not correct, the user can modify the ROI with standard Fiji selection tools.</p><ol><li>Select the ROI in ROI Manager.</li><li>Edit the shape with Fiji's ROI tools.</li><li>Use <strong>Update</strong> in ROI Manager.</li><li>Mark the ROI as manually edited when requested by the workflow.</li><li>Recalculate/confirm the object so exported measurements correspond to the edited ROI.</li></ol>
+<h3>Replace the automatic ROI completely</h3><p>Use <strong>Replace with manual ROI</strong> when the automatic contour is not a suitable starting point.</p><ol><li>Choose a closed area-selection tool in Fiji.</li><li>Draw or construct the <strong>final biological area occupied by the colony</strong>.</li><li>If the colony contains holes, subtract those regions using Fiji selection operations so the final ROI can be composite.</li><li>Leave the finished ROI active on the image.</li><li>Press <strong>Use manual ROI</strong>.</li><li>Review the resulting measurements and classification again.</li></ol>
+<p>FungiGrowthJ measures the replacement ROI and records the intervention, including <code>edited_manually = true</code> and <code>edit_operation = ROI_MANUAL_REPLACE</code>.</p>
+<div class="callout warning">A manual replacement should trace the biological region, not the glass edge or a convenient geometric approximation.</div>
+</section>
+<section id="cut"><span class="badge">Manual correction</span><h2>18. Cut / Trim ROI</h2>
+<p><strong>Cut / Trim ROI</strong> is used when the automatically detected <strong>outer contour is basically correct</strong>, but one or more unwanted connections or protruding regions must be removed.</p>
+<h3>When to prefer Cut / Trim</h3><ul><li>The outer automatic boundary is good.</li><li>Only a connection between regions needs to be severed.</li><li>An unwanted attached fragment should be removed without redrawing the entire colony.</li></ul>
+<h3>How the cut is drawn</h3><p>The current implementation accepts <strong>straight, segmented, and freehand line ROIs</strong>. FungiGrowthJ does not change the currently selected Fiji line tool.</p>
+<ol><li>Choose <strong>Cut / trim automatic ROI</strong> from the review action menu.</li><li>Draw one line across the connection or unwanted region.</li><li>Extend the stroke completely across the connection you want to separate.</li><li>Press <strong>Apply this cut</strong>.</li><li>Repeat with additional cuts as needed. There is no preset maximum number of cuts.</li></ol>
+<p>The cut is converted to a narrow strip and subtracted from the current shape. The original outer contour is otherwise preserved.</p>
+<h3>After applying a cut</h3><table><thead><tr><th>Action</th><th>Meaning</th></tr></thead><tbody><tr><td><strong>Draw another cut</strong></td><td>Add another separation.</td></tr><tr><td><strong>Preview resulting regions</strong></td><td>Split the current shape into disconnected fragments and review them.</td></tr><tr><td><strong>Undo last cut</strong></td><td>Restore the previous geometry.</td></tr><tr><td><strong>Cancel correction</strong></td><td>Abort the cut correction.</td></tr></tbody></table>
+<h3>Reviewing cut regions</h3><p>FungiGrowthJ reviews the resulting fragments <strong>one at a time</strong>. The active fragment is highlighted in red and the other fragments receive thin cyan outlines.</p><p>For each fragment, choose:</p><ul><li><strong>Keep as colony</strong> — keep it as a biological region.</li><li><strong>Discard</strong> — remove it from the resulting colony set.</li></ul>
+<p>The safe default is <strong>Keep as colony</strong>. This is intentional: the user must explicitly discard non-biological fragments.</p>
+<h3>Navigation during cut review</h3><ul><li>Save and next region.</li><li>Previous region.</li><li>Return to cuts.</li><li>Cancel correction.</li></ul>
+<h3>Cut review summary</h3><p>The summary displays the number of generated regions, the number kept, and the number discarded. Kept regions are shown in green and discarded regions in gray.</p>
+<p>The user may then accept the result, review the regions again, add another cut, undo the last cut, or cancel.</p>
+<div class="callout warning"><strong>If a cut does not separate the object:</strong> the line probably did not cross the complete connection. Extend the cut, add another cut, or undo the last cut. Do not assume that one partial stroke should automatically create two biological colonies.</div>
+</section>
+<section id="split"><span class="badge">Multiple colonies</span><h2>19. Split ROI into multiple colonies</h2>
+<p><strong>Split ROI into multiple colonies</strong> is used when one detected object contains several colonies and the user needs to define the child ROIs explicitly.</p>
+<h3>Procedure</h3><ol><li>Choose <strong>Split ROI into multiple colonies</strong>.</li><li>Specify how many colonies are present.</li><li>Draw each child ROI in sequence.</li><li>Review the child measurements shown by the split preview.</li><li>Confirm the complete set.</li></ol>
+<p>The current workflow allows up to 10 daughter colonies in one split operation for quality control. A further split can be applied to any child ROI that still contains multiple colonies.</p>
+<h3>Traceability</h3><p>Child objects retain their relationship to the original object through parent/child identifiers and the split operation. New split ROIs are highlighted in cyan during the review process.</p>
+<div class="callout info"><strong>Split vs Cut:</strong> Cut / Trim removes a narrow strip from an existing shape and then asks the user which resulting fragments to keep. Split ROI asks the user to explicitly draw the daughter colony regions.</div>
+</section>
+<section id="small-candidates"><span class="badge">Low-confidence detection</span><h2>20. Very small / point-like candidates</h2>
+<p>The normal candidate detector uses a minimum object area. When very small colonies may be biologically relevant, the user can enable <strong>Detect very small / point-like colony candidates</strong>.</p>
+<p>This produces a second, low-confidence candidate pass. These candidates are <strong>never silently auto-accepted</strong>; they are explicitly sent to review.</p>
+<p>The current default minimum for this pass is 20 px².</p>
+<div class="callout warning">Very small candidates can also be artifacts, dirt, marker fragments, or text. Their low area is a reason for closer review, not evidence of biological identity.</div>
+</section>
+<section id="batch"><span class="badge">Longitudinal experiments</span><h2>21. Batch, persistent state, and restart</h2>
+<p>Batch uses the same Single Image analysis engine while adding persistent state and experiment-level management.</p>
+<h3>Typical state flow</h3><pre>PENDING
+↓
+IN_PROGRESS
+↓
+COMPLETED
+
+or
+
+ERROR
+REVIEW
+INTERRUPTED
+SKIPPED
+TRAVERSED</pre>
+<table><thead><tr><th>State</th><th>Meaning</th></tr></thead><tbody><tr><td><code>PENDING</code></td><td>Not yet processed.</td></tr><tr><td><code>IN_PROGRESS</code></td><td>Processing has started.</td></tr><tr><td><code>INTERRUPTED</code></td><td>A previous session stopped while the observation was in progress.</td></tr><tr><td><code>COMPLETED</code></td><td>The observation finished and a result was persisted.</td></tr><tr><td><code>ERROR</code></td><td>The workflow did not finish successfully.</td></tr><tr><td><code>REVIEW</code></td><td>A human decision or visual check remains necessary.</td></tr><tr><td><code>SKIPPED</code></td><td>Explicitly excluded.</td></tr><tr><td><code>TRAVERSED</code></td><td>Image was traversed/visited; this state alone does not prove that a complete scientific analysis was performed.</td></tr></tbody></table>
+<h3>Restart behavior</h3><p>Batch is designed to allow the user to stop between images. Completed observations should not be silently reprocessed merely because the session was restarted.</p>
+<div class="callout warning"><strong>REVIEW and ERROR are not equivalent to successful analysis.</strong> A result from an observation with unresolved failure/review state should not be treated as a completed scientific observation without verification.</div>
+<h3>Visual review of REVIEW / ERROR observations</h3><p>When persisted ROIs/results exist, Batch can be used to inspect the image and decide whether the observation can be closed as completed or should remain under review. Changing a workflow status is not the same as re-running the entire image analysis.</p>
+</section>
+<section id="files"><span class="badge">Outputs</span><h2>22. Generated files</h2>
+<pre>.fungigrowthj/
+├── experiment_manifest.csv
+├── experiment_qa_report.csv
+├── experiment_summary.txt
+├── project_state.json
+├── batch_log.csv
+└── results/
+    └── ...
+        └── *_FungiGrowthJ_results.csv</pre>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>experiment_manifest.csv</code></td><td>Experiment inventory: strain, replicate, date, image, QA information, and observation metadata.</td></tr>
+<tr><td><code>experiment_qa_report.csv</code></td><td>Structural and workflow quality-control report.</td></tr>
+<tr><td><code>experiment_summary.txt</code></td><td>Human-readable experiment summary.</td></tr>
+<tr><td><code>project_state.json</code></td><td>Persistent workflow state used by Batch and restart/recovery logic.</td></tr>
+<tr><td><code>batch_log.csv</code></td><td>Readable history of state transitions and processing events.</td></tr>
+<tr><td><code>*_FungiGrowthJ_results.csv</code></td><td>Image-level scientific results and traceability metadata.</td></tr>
+</tbody></table>
+</section>
+<section id="csv"><span class="badge">Data structure</span><h2>23. Output CSV structure</h2>
+<p>The CSV is an <strong>object-level</strong> result table. One image can contain multiple rows because each detected/reviewed object produces its own record.</p>
+<p>Therefore, the CSV should not be interpreted as “one row = one biological replicate” or “one row = one date.” Longitudinal biological analysis is a separate aggregation step.</p>
+<h3>Core identity</h3><pre>experiment
+strain_id
+replicate_id
+date_raw
+date
+image_file
+colony_id
+parent_object_id
+edit_operation</pre>
+<h3>Scientific classification and review</h3><p><code>final_type</code>, <code>proposed_type</code>, <code>review_status</code>, <code>review_flag</code>, <code>review_code</code>, <code>review_note</code>, and <code>edited_manually</code> are documented in the <a href="#glossary">complete output-variable glossary</a>, including their allowed values and filtering rules.</p>
+<h3>Calibration / processing metadata</h3><pre>scale_method
+scale_unit
+known_distance
+line_length_px
+pixels_per_unit
+agar_roi_method
+agar_roi_manual_edit
+threshold_method
+threshold_value
+software_version
+analysis_revision</pre>
+<div class="callout info"><s<section id="glossary"><span class="badge">Reference</span><h2>24. Complete output-variable glossary</h2>
+<p>The CSV is an <strong>object-level</strong> table: each row represents one detected, reviewed, edited, split, or otherwise retained ROI record from one image. The fields below explain exactly what each variable means and, for categorical fields, which values FungiGrowthJ can export.</p>
+<div class="callout info"><strong>Important distinction:</strong> <code>final_type</code> is the field that identifies what the object is for biological use. <code>review_status</code>, <code>review_flag</code>, <code>review_code</code>, <code>review_note</code>, and <code>edit_operation</code> describe how the object was processed or reviewed. They are traceability fields, not interchangeable biological classifications.</div>
+
+<h3>24.1 Identity and traceability</h3>
+<table><thead><tr><th>Variable</th><th>Meaning</th><th>Typical values / notes</th></tr></thead><tbody>
+<tr><td><code>experiment</code></td><td>Experiment/root identifier.</td><td>Name or identifier of the experiment.</td></tr>
+<tr><td><code>strain_id</code></td><td>Strain identifier.</td><td>Defined by the experiment structure.</td></tr>
+<tr><td><code>replicate_id</code></td><td>Biological replicate or plate identifier.</td><td>Defined by the experiment structure.</td></tr>
+<tr><td><code>date_raw</code></td><td>Original date representation obtained from the folder structure.</td><td>Preserved for traceability.</td></tr>
+<tr><td><code>date</code></td><td>Normalized observation date.</td><td>ISO date used for longitudinal analysis.</td></tr>
+<tr><td><code>image_file</code></td><td>Source image filename.</td><td>Links the row to the original photograph.</td></tr>
+<tr><td><code>analysis_revision</code></td><td>Revision number associated with the analysis of that image.</td><td>Used to resolve repeated revisions before biological analysis.</td></tr>
+<tr><td><code>colony_id</code></td><td>Identifier assigned to the object/colony record.</td><td>Remains the identifier of that exported row/object.</td></tr>
+<tr><td><code>parent_object_id</code></td><td>Identifier of the source object when a later operation creates child ROIs.</td><td>Especially relevant to Split/Cut workflows.</td></tr>
+<tr><td><code>edited_manually</code></td><td>Whether the ROI was manually modified or replaced.</td><td><code>Y</code> or <code>N</code>.</td></tr>
+</tbody></table>
+
+<h3>24.2 Final biological classification: <code>final_type</code></h3>
+<p>This is the <strong>primary classification field for downstream biological filtering</strong>.</p>
+<table><thead><tr><th>Value</th><th>Meaning</th><th>Use in biological analysis</th></tr></thead><tbody>
+<tr><td><code>CEN</code></td><td>Central colony.</td><td>Use as the confirmed central colony.</td></tr>
+<tr><td><code>SAT</code></td><td>Satellite colony.</td><td>Use as an identifiable satellite colony.</td></tr>
+<tr><td><code>IGN</code></td><td>Ignored object: not retained as a biological colony for the final interpretation.</td><td><strong>Do not use as a biological colony.</strong></td></tr>
+<tr><td><code>DEF</code></td><td>Review deferred.</td><td>Do not treat as a confirmed biological classification.</td></tr>
+<tr><td><code>UNR</code></td><td>Unreviewed object.</td><td>Do not use as a confirmed biological result.</td></tr>
+<tr><td><code>UNK</code></td><td>Unknown/unrecognized classification code.</td><td>Requires inspection before biological use.</td></tr>
+</tbody></table>
+
+<div class="callout warning"><strong>Filtering rule:</strong> for biological analyses of colonies, filter on <code>final_type</code>, not on <code>review_code</code>. In the normal workflow, the useful biological rows are <code>CEN</code> and <code>SAT</code>. Rows with <code>IGN</code> are excluded from colony-level biological summaries. <code>DEF</code>, <code>UNR</code>, and <code>UNK</code> should not be silently included as confirmed biological observations.</div>
+
+<h3>24.3 Automatic proposal: <code>proposed_type</code></h3>
+<p><code>proposed_type</code> records the classification proposed by FungiGrowthJ before or alongside human confirmation. It uses the same compact type codes as <code>final_type</code>:</p>
+<table><thead><tr><th>Value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>CEN</code></td><td>Proposed central colony.</td></tr>
+<tr><td><code>SAT</code></td><td>Proposed satellite colony.</td></tr>
+<tr><td><code>IGN</code></td><td>Proposed ignore.</td></tr>
+<tr><td><code>DEF</code></td><td>Deferred proposal.</td></tr>
+<tr><td><code>UNR</code></td><td>Unreviewed.</td></tr>
+<tr><td><code>UNK</code></td><td>Unknown/unrecognized state.</td></tr>
+</tbody></table>
+<p><strong>Do not use <code>proposed_type</code> as the final biological classification.</strong> The downstream analysis should use <code>final_type</code>.</p>
+
+<h3>24.4 Review status: <code>review_status</code></h3>
+<table><thead><tr><th>Value</th><th>Meaning</th><th>Interpretation</th></tr></thead><tbody>
+<tr><td><code>AUTO_ACC</code></td><td>Automatically accepted, including automatic acceptance after the review preview.</td><td>The object passed through the workflow without a manual classification change.</td></tr>
+<tr><td><code>MAN_CONF</code></td><td>Manually confirmed.</td><td>The user explicitly confirmed a classification/decision.</td></tr>
+<tr><td><code>DEF</code></td><td>Deferred.</td><td>The review decision was postponed.</td></tr>
+<tr><td><code>PEND</code></td><td>Pending review.</td><td>The object has not completed review.</td></tr>
+<tr><td><code>UNK</code></td><td>Unknown/unrecognized review state.</td><td>Inspect before use.</td></tr>
+</tbody></table>
+
+<h3>24.5 Review flag: <code>review_flag</code></h3>
+<p><code>review_flag</code> is a <strong>quality/review warning</strong>. It does not automatically invalidate an object and it is not a replacement for <code>final_type</code>.</p>
+<table><thead><tr><th>Value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><em>blank</em></td><td>No specific review flag recorded.</td></tr>
+<tr><td><code>SMALL</code></td><td>Very small / point-like candidate detected in the optional low-confidence pass.</td></tr>
+<tr><td><code>LOW_CIRC</code></td><td>Low-circularity alert on the detected object.</td></tr>
+<tr><td><code>LOW_CIRC_EDIT</code></td><td>Low circularity after ROI editing.</td></tr>
+<tr><td><code>LOW_CIRC_CUT</code></td><td>Low circularity after Cut/Trim.</td></tr>
+<tr><td><code>LOW_CIRC_SPLIT</code></td><td>Low circularity after Split ROI.</td></tr>
+<tr><td><code>LOW_CIRC_MANUAL</code></td><td>Low circularity after manual ROI replacement.</td></tr>
+<tr><td><code>NEAR_EDGE</code></td><td>Object is near the agar ROI boundary.</td></tr>
+</tbody></table>
+<div class="callout info"><strong>Important:</strong> a low-circularity flag is a review signal, not an automatic statement that the object is an artifact. Real fungal colonies can be irregular.</div>
+
+<h3>24.6 Review code: <code>review_code</code></h3>
+<p><code>review_code</code> is a compact <strong>traceability code</strong>. It is not the main biological classification. Its value depends on what happened during review/editing, and it can be blank.</p>
+<table><thead><tr><th>Value</th><th>Meaning</th><th>What it tells you</th></tr></thead><tbody>
+<tr><td><em>blank / NA</em></td><td>No special review code was assigned.</td><td>This does <strong>not</strong> mean ignored.</td></tr>
+<tr><td><code>IGNORED</code></td><td>The object ended with <code>final_type = IGN</code>.</td><td>This is an ignored object. It should be excluded from biological colony summaries.</td></tr>
+<tr><td><code>MAN_CONF</code></td><td>Manual confirmation.</td><td>A user explicitly confirmed the review decision.</td></tr>
+<tr><td><code>AUTO_ACC</code></td><td>Automatic acceptance.</td><td>The object was accepted without a special manual edit.</td></tr>
+<tr><td><code>DEFERRED</code></td><td>Review was deferred.</td><td>Not a completed biological classification.</td></tr>
+<tr><td><code>ROI_CUT</code></td><td>ROI was modified using Cut/Trim and the resulting object was retained.</td><td>Geometry was altered by cutting.</td></tr>
+<tr><td><code>ROI_CUT_PARENT</code></td><td>Original parent record associated with a Cut/Trim operation.</td><td>Traceability to the pre-cut object.</td></tr>
+<tr><td><code>ROI_CUT_DISCARD</code></td><td>Fragment produced by Cut/Trim was discarded.</td><td>Traceability for a discarded cut fragment.</td></tr>
+<tr><td><code>ROI_SPLIT</code></td><td>ROI produced by Split ROI.</td><td>Traceability for a child colony created by splitting a merged object.</td></tr>
+<tr><td><code>ROI_SPLIT_PARENT</code></td><td>Original parent record associated with a Split ROI operation.</td><td>Traceability to the pre-split object.</td></tr>
+<tr><td><code>ROI_MANUAL_REPLACE</code></td><td>Automatic ROI replaced by a manually drawn ROI.</td><td>Geometry was replaced manually and then remeasured.</td></tr>
+<tr><td><code>ROI_EDIT</code></td><td>Existing ROI was edited manually.</td><td>The original automatic geometry was modified and retained.</td></tr>
+</tbody></table>
+
+<div class="callout"><strong>Do not filter the biological dataset using <code>review_code</code> alone.</strong> For example, a valid central colony may have <code>review_code = MAN_CONF</code>, <code>ROI_CUT</code>, <code>ROI_SPLIT</code>, or <code>ROI_MANUAL_REPLACE</code>. Those codes describe the review/edit history; they do not mean “exclude this row”. The biological inclusion decision comes from <code>final_type</code>.</div>
+
+<h3>24.7 Free-text review note: <code>review_note</code></h3>
+<p>Optional human-readable note associated with the review or edit.</p>
+<p>Unlike <code>review_code</code>, this field is not a controlled categorical code. It may be blank or may contain a descriptive note entered during the workflow.</p>
+
+<h3>24.8 Geometric edit trace: <code>edit_operation</code></h3>
+<table><thead><tr><th>Value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>NONE</code></td><td>No ROI edit operation recorded.</td></tr>
+<tr><td><code>ROI_CUT</code></td><td>ROI modified by Cut/Trim.</td></tr>
+<tr><td><code>ROI_CUT_PARENT</code></td><td>Parent record associated with a Cut/Trim operation.</td></tr>
+<tr><td><code>ROI_CUT_DISCARD</code></td><td>Cut fragment discarded during review.</td></tr>
+<tr><td><code>ROI_SPLIT</code></td><td>ROI produced through Split ROI.</td></tr>
+<tr><td><code>ROI_SPLIT_PARENT</code></td><td>Parent record associated with Split ROI.</td></tr>
+<tr><td><code>ROI_MANUAL_REPLACE</code></td><td>Automatic ROI replaced by a manually drawn ROI.</td></tr>
+<tr><td><code>ROI_EDIT</code></td><td>Existing ROI edited manually.</td></tr>
+</tbody></table>
+
+<h3>24.9 The practical filtering workflow</h3>
+<table><thead><tr><th>Question</th><th>Field to use</th><th>Rule</th></tr></thead><tbody>
+<tr><td>Which rows are biological colonies?</td><td><code>final_type</code></td><td>Keep <code>CEN</code> and <code>SAT</code>.</td></tr>
+<tr><td>Which rows are ignored?</td><td><code>final_type</code> or, equivalently, <code>review_code</code></td><td><code>final_type = IGN</code> corresponds to <code>review_code = IGNORED</code> in the current export logic.</td></tr>
+<tr><td>Which rows are unresolved?</td><td><code>final_type</code>, <code>review_status</code></td><td>Inspect <code>DEF</code>, <code>UNR</code>, <code>UNK</code>, or pending review states rather than silently treating them as biological colonies.</td></tr>
+<tr><td>Was the geometry edited?</td><td><code>edit_operation</code>, <code>edited_manually</code>, <code>roi_source</code></td><td>Use these fields for traceability and sensitivity checks.</td></tr>
+<tr><td>Was it merely flagged as unusual?</td><td><code>review_flag</code></td><td>Review the flag, but do not automatically exclude unless your analysis protocol specifies that rule.</td></tr>
+<tr><td>Was the decision manually confirmed?</td><td><code>review_status</code></td><td><code>MAN_CONF</code>.</td></tr>
+</tbody></table>
+
+<div class="callout warning"><strong>Recommended rule for the biological analysis notebook:</strong> resolve image revisions first, then use <code>final_type</code> to define the biological objects. For central-colony analysis, select the reviewed <code>CEN</code> row. For satellite analysis, select <code>SAT</code> rows. Keep <code>IGN</code> rows only for audit/traceability, not as biological observations.</div>
+
+<h3>24.10 Size</h3>
+<table><thead><tr><th>Variable</th><th>Meaning / calculation</th><th>Interpretation</th></tr></thead><tbody>
+<tr><td><code>area_mm2</code></td><td>Area of the final ROI converted to calibrated square millimetres.</td><td>Primary two-dimensional extent measure.</td></tr>
+<tr><td><code>perimeter_mm</code></td><td>Calibrated ROI boundary length.</td><td>Boundary extent and a component of shape metrics.</td></tr>
+<tr><td><code>equivalent_radius_mm</code></td><td><code>sqrt(area_mm2 / π)</code>.</td><td>Linear size descriptor corresponding to the radius of an equal-area circle.</td></tr>
+<tr><td><code>equivalent_diameter_mm</code></td><td><code>2 × equivalent_radius_mm</code>.</td><td>Alternative linear size descriptor.</td></tr></tbody></table>
+<div class="callout warning"><strong>Equivalent radius is not a physical colony radius.</strong> It is an area-equivalent transformation.</div>
+
+<h3>24.11 Ellipse / elongation</h3>
+<table><thead><tr><th>Variable</th><th>Meaning / calculation</th><th>Interpretation</th></tr></thead><tbody>
+<tr><td><code>major_axis_mm</code></td><td>Major axis of the fitted ellipse.</td><td>Dominant fitted linear extent.</td></tr><tr><td><code>minor_axis_mm</code></td><td>Minor axis of the fitted ellipse.</td><td>Perpendicular fitted extent.</td></tr><tr><td><code>major_radius_mm</code></td><td>Major axis / 2.</td><td>Semimajor axis.</td></tr><tr><td><code>minor_radius_mm</code></td><td>Minor axis / 2.</td><td>Semiminor axis.</td></tr><tr><td><code>aspect_ratio</code></td><td>Major axis / minor axis.</td><td>Values near 1 indicate an approximately isotropic fitted ellipse; larger values indicate elongation.</td></tr><tr><td><code>eccentricity</code></td><td><code>sqrt(1 - minor² / major²)</code>.</td><td>0 for a circle; increases as the fitted ellipse becomes more elongated.</td></tr><tr><td><code>ellipse_angle_deg</code></td><td>Orientation of the fitted major axis.</td><td>Direction of dominant elongation in image coordinates.</td></tr></tbody></table>
+
+<h3>24.12 Feret measures</h3>
+<table><thead><tr><th>Variable</th><th>Meaning</th><th>Interpretation</th></tr></thead><tbody>
+<tr><td><code>feret_max_mm</code></td><td>Maximum Feret/caliper-type extent.</td><td>Maximum physical span of the object.</td></tr><tr><td><code>feret_min_mm</code></td><td>Minimum Feret extent.</td><td>Minimum directional span represented by the measurement.</td></tr><tr><td><code>feret_angle_deg</code></td><td>Angle associated with the maximum Feret extent.</td><td>Direction of maximum object extension.</td></tr></tbody></table>
+
+<h3>24.13 Shape and boundary complexity</h3>
+<table><thead><tr><th>Variable</th><th>Calculation / origin</th><th>Interpretation</th></tr></thead><tbody>
+<tr><td><code>circularity</code></td><td><code>4πA / P²</code>.</td><td>1 for an ideal circle; lower values reflect elongation and/or boundary complexity.</td></tr><tr><td><code>convex_hull_area_mm2</code></td><td>Area of the convex hull.</td><td>Area after filling concavities in the outline.</td></tr><tr><td><code>convex_hull_perimeter_mm</code></td><td>Perimeter of the convex hull.</td><td>Boundary length of the convexified shape.</td></tr><tr><td><code>solidity</code></td><td><code>area / convex_hull_area</code>.</td><td>Near 1 for compact shapes; lower when the outline is strongly concave/lobed.</td></tr><tr><td><code>convexity</code></td><td><code>convex_hull_perimeter / perimeter</code>.</td><td>Lower values indicate a more complex/non-convex boundary.</td></tr></tbody></table>
+
+<h3>24.14 Position</h3>
+<table><thead><tr><th>Variable</th><th>Reference</th><th>Interpretation</th></tr></thead><tbody>
+<tr><td><code>centroid_x_mm</code></td><td>Image coordinate system.</td><td>X coordinate of the ROI centroid.</td></tr><tr><td><code>centroid_y_mm</code></td><td>Image coordinate system.</td><td>Y coordinate of the ROI centroid.</td></tr><tr><td><code>distance_to_plate_center_mm</code></td><td>Geometric center of confirmed agar ROI.</td><td>Distance from colony centroid to plate center.</td></tr></tbody></table>
+
+<h3>24.15 Satellite-to-central distances</h3>
+<table><thead><tr><th>Variable</th><th>Calculation</th><th>Interpretation</th></tr></thead><tbody>
+<tr><td><code>distance_to_central_centroid_mm</code></td><td>Euclidean distance between the satellite centroid and the confirmed central-colony centroid.</td><td>Current spatial organization relative to the central colony.</td></tr><tr><td><code>distance_to_central_edge_mm</code></td><td>Minimum distance between the satellite and central colony contours.</td><td>Current physical gap/separation between the two visible colonies.</td></tr></tbody></table>
+<div class="callout warning"><code>distance_to_central_edge_mm</code> is not automatically the distance traveled by a spore. The central colony boundary changes through time.</div>
+
+<h3>24.16 Inoculation-origin variables</h3>
+<table><thead><tr><th>Variable</th><th>Calculation</th><th>Interpretation</th></tr></thead><tbody>
+<tr><td><code>inoculation_origin_x_mm</code></td><td>X coordinate of the user-marked inoculation point.</td><td>Image-specific X reference for the inoculation origin.</td></tr><tr><td><code>inoculation_origin_y_mm</code></td><td>Y coordinate of the user-marked inoculation point.</td><td>Image-specific Y reference.</td></tr><tr><td><code>distance_to_inoculation_origin_mm</code></td><td>Euclidean distance from colony centroid to the marked inoculation point.</td><td>Spatial distance from the biological origin.</td></tr><tr><td><code>angle_from_inoculation_origin_deg</code></td><td>Polar direction from inoculation point to colony centroid.</td><td>Direction relative to the inoculation site; cross-date comparisons require consistent image orientation.</td></tr></tbody></table>
+
+<h3>24.17 Plate occupancy</h3>
+<table><thead><tr><th>Variable</th><th>Calculation</th><th>Interpretation</th></tr></thead><tbody>
+<tr><td><code>agar_area_mm2</code></td><td>Area of the confirmed useful-agar ROI.</td><td>Reference surface area of the plate.</td></tr><tr><td><code>plate_occupancy_pct</code></td><td><code>colony_area / agar_area × 100</code>.</td><td>Percentage of useful agar occupied by that ROI.</td></tr></tbody></table>
+
+<h3>24.18 Raw pixel measurements</h3>
+<p>Raw pixel variables may include <code>area_px2</code>, <code>perimeter_px</code>, <code>centroid_x_px</code>, <code>centroid_y_px</code>, <code>major_axis_px</code>, <code>minor_axis_px</code>, <code>feret_max_px</code>, <code>feret_min_px</code>, and convex-hull measurements in pixels.</p>
+<p>These are retained for audit, verification, and controlled re-calibration. They are not interchangeable with physical-unit measurements.</p>
+</section>
+de>, <code>feret_min_px</code>, and convex-hull measurements in pixels.</p><p>These are retained for audit, verification, and controlled re-calibration. They are not interchangeable with physical-unit measurements.</p>
+</section>
+<section id="formulas"><span class="badge">Reference</span><h2>25. Formulas and biological interpretation</h2>
+<h3>Area-equivalent radius</h3><div class="formula">r_eq = sqrt(A / π)</div><p>Useful as a scalar linear descriptor of irregular colony size. It is not a geometric radius from an observed center.</p>
+<h3>Area expansion rate</h3><div class="formula">area_rate = (A_t2 - A_t1) / Δt</div><p>Describes observed change in visible colony area per unit time over the interval considered.</p>
+<h3>Equivalent radial expansion</h3><div class="formula">radial_rate = (r_eq,t2 - r_eq,t1) / Δt</div><p>Describes change in the area-equivalent radius through time.</p>
+<h3>Aspect ratio</h3><div class="formula">AR = major_axis / minor_axis</div>
+<h3>Eccentricity</h3><div class="formula">e = sqrt(1 - minor_axis² / major_axis²)</div>
+<h3>Circularity</h3><div class="formula">Circularity = 4πA / P²</div>
+<h3>Solidity</h3><div class="formula">Solidity = A / A_convex_hull</div>
+<h3>Centroid-to-centroid distance</h3><div class="formula">d = sqrt((x_sat - x_cen)² + (y_sat - y_cen)²)</div>
+<h3>Inoculation-origin distance</h3><div class="formula">d = sqrt((x_col - x_inoc)² + (y_col - y_inoc)²)</div>
+<div class="callout warning">These formulas describe image geometry. They do not by themselves establish biological mechanisms such as sporulation, spore dispersal, biomass production, or growth physiology.</div>
+</section>
+<section id="which-variable"><span class="badge">Practical guide</span><h2>26. Choosing variables for biological questions</h2>
+<table><thead><tr><th>Question</th><th>Useful FungiGrowthJ variables</th><th>Interpretation note</th></tr></thead><tbody>
+<tr><td>How much surface did the colony occupy?</td><td><code>area_mm2</code>, <code>plate_occupancy_pct</code></td><td>Primary two-dimensional extent measures.</td></tr>
+<tr><td>How large was the colony in a linear scale?</td><td><code>equivalent_radius_mm</code>, <code>equivalent_diameter_mm</code></td><td>Area-derived size descriptors, not physical radii.</td></tr>
+<tr><td>How did size change through time?</td><td><code>area_mm2</code>, <code>equivalent_radius_mm</code></td><td>Needs repeated observations; rates are calculated downstream.</td></tr>
+<tr><td>Was the colony elongated?</td><td><code>major_axis_mm</code>, <code>minor_axis_mm</code>, <code>aspect_ratio</code>, <code>eccentricity</code></td><td>Describe fitted elongation.</td></tr>
+<tr><td>How irregular was the boundary?</td><td><code>perimeter_mm</code>, <code>circularity</code>, <code>solidity</code>, <code>convexity</code></td><td>Boundary metrics are sensitive to segmentation and real shape.</td></tr>
+<tr><td>How far is a satellite from the current central colony?</td><td><code>distance_to_central_centroid_mm</code>, <code>distance_to_central_edge_mm</code></td><td>Describe current spatial separation, not historical movement.</td></tr>
+<tr><td>How far is a colony from the original inoculation site?</td><td><code>distance_to_inoculation_origin_mm</code></td><td>Requires an inoculation point recorded for each image.</td></tr>
+<tr><td>Is there a preferred spatial direction?</td><td><code>angle_from_inoculation_origin_deg</code></td><td>Requires consistent image orientation across observations.</td></tr>
+<tr><td>How much satellite area contributes to the phenotype?</td><td><code>area_mm2</code> for SAT objects; downstream satellite sums/fractions.</td><td>The notebook aggregates these rows into replicate/date summaries.</td></tr>
+<tr><td>Did the object receive manual intervention?</td><td><code>edited_manually</code>, <code>edit_operation</code>, <code>review_status</code>, <code>review_note</code></td><td>Use for traceability and sensitivity checks.</td></tr>
+</tbody></table>
+</section>
+<section id="qa"><span class="badge">Quality control</span><h2>27. Quality assurance</h2>
+<p>Quality assurance is distributed across acquisition, segmentation, review, persistence, and export.</p>
+<table><thead><tr><th>Checkpoint</th><th>What to verify</th></tr></thead><tbody>
+<tr><td>Experiment structure</td><td>Strain, replicate, date, image, and folder hierarchy are correct.</td></tr>
+<tr><td>Calibration</td><td>Valid line, positive known distance, correct unit, appropriate calibration policy.</td></tr>
+<tr><td>Agar sample</td><td>Clean and representative local reference.</td></tr>
+<tr><td>Agar ROI</td><td>Tracks useful agar rather than glass/background.</td></tr>
+<tr><td>Mask</td><td>The detection mask represents the intended regions without excessive artifact contamination.</td></tr>
+<tr><td>Candidate detection</td><td>Real colonies are not missing and obvious artifacts are not silently accepted.</td></tr>
+<tr><td>Touching-colony partition</td><td>Child ROIs are biologically plausible and reviewed.</td></tr>
+<tr><td>ROI Review</td><td>Classification and edits are explicit.</td></tr>
+<tr><td>Central colony</td><td>Correct central object is explicitly confirmed when required.</td></tr>
+<tr><td>Export</td><td>CSV exists and contains expected metadata/measurements.</td></tr>
+</tbody></table>
+<div class="callout warning"><strong>Zero candidates means review/error, not “no colony”.</strong> A failed or empty detection should not be silently converted into a biological zero.</div>
+</section>
+<section id="troubleshooting"><span class="badge">Troubleshooting</span><h2>28. Troubleshooting</h2>
+<table><thead><tr><th>Problem</th><th>Likely cause</th><th>Action</th></tr></thead><tbody>
+<tr><td>Agar ROI will not fit the plate</td><td>Poor agar sample or very different local appearance.</td><td>Reselect the agar sample before using extreme morphology settings.</td></tr>
+<tr><td>Too much background enters the agar ROI</td><td>RGB color tolerance too high.</td><td>Reduce tolerance; if necessary, select a better sample.</td></tr>
+<tr><td>Agar is missing from the ROI</td><td>Tolerance too low, strong shadow/reflection, or poor sample.</td><td>Increase tolerance first; reselect the sample if needed.</td></tr>
+<tr><td>Marker lines have small breaks</td><td>Contour interruption before Fill Holes.</td><td>Try a small value for Marker gap closure iterations and inspect the mask.</td></tr>
+<tr><td>Many dark dots/stains are detected</td><td>Dark artifacts pass threshold.</td><td>Use manual dark-artifact cleaning and erase only obvious artifacts from the binary mask.</td></tr>
+<tr><td>Two colonies are detected as one object</td><td>Contours remained connected.</td><td>Enable Enhanced touching-colony partition, use Cut / Trim, or Split ROI.</td></tr>
+<tr><td>One cut does not separate the object</td><td>The stroke did not cross the complete connection.</td><td>Extend the cut across the connection, add another cut, or undo the last cut.</td></tr>
+<tr><td>Cut creates a small non-biological fragment</td><td>The cut removed an attached artifact or contour piece.</td><td>During fragment review, explicitly choose Discard for the non-biological region.</td></tr>
+
+<tr><td>Automatic central proposal is wrong</td><td>Proposal is based on position relative to plate center.</td><td>Explicitly classify the correct ROI as <code>central</code> during review.</td></tr>
+<tr><td>Text/letters become candidates</td><td>Dark structures legitimately pass threshold.</td><td>Review and classify them as <code>IGN</code> when appropriate.</td></tr>
+<tr><td>Very small objects are missed</td><td>Below the normal minimum candidate area.</td><td>Enable the very-small candidate pass and review all resulting candidates.</td></tr>
+<tr><td>Batch observation is in ERROR</td><td>Workflow did not finish successfully.</td><td>Do not treat it as completed. Review the image/log or re-run only if necessary.</td></tr>
+<tr><td>Batch observation is in REVIEW</td><td>Human decision remains unresolved.</td><td>Use visual review, confirm the persisted result, and explicitly close or retain the review state.</td></tr>
+<tr><td>Measurements change between images unexpectedly</td><td>Acquisition geometry or calibration changed.</td><td>Check calibration policy and raw pixel measurements.</td></tr>
+</tbody></table>
+</section>
+<section id="repro"><span class="badge">Final checklist</span><h2>29. Reproducibility and traceability</h2>
+<p>For a reproducible experiment, retain the following together:</p>
+<ul><li>Original source images.</li><li>The exact FungiGrowthJ version(s).</li><li>Calibration policy and calibration values.</li><li>Agar-sample and agar-ROI decisions.</li><li>Detection settings relevant to difficult images.</li><li>Manual artifact cleanup when used.</li><li>Partition/Cut / Trim/Split interventions.</li><li>Review classifications.</li><li>Parent/child identifiers and edit operations.</li><li>Batch state and logs.</li><li>Final result CSV files.</li></ul>
+<div class="grid2"><div class="card"><h3>FungiGrowthJ measures</h3><p>Image-level objects, geometry, spatial references, review classifications, and traceability.</p></div><div class="card"><h3>Biological Analysis Notebook</h3><p>Temporal aggregation, replicate-level summaries, growth rates, statistics, figures, PCA, clustering, and biological interpretation.</p></div></div>
+<div class="callout info"><strong>Documentation boundary:</strong> this manual explains what FungiGrowthJ measures and how those measurements are produced. The separate Biological Analysis Notebook manual explains how those measurements are aggregated and analyzed.</div>
+</section>
+</main></div>
+<footer>FungiGrowthJ — Complete User Manual · Single Image 0.3.74 · Batch 0.2.25 · September 2026</footer>
+</body></html>

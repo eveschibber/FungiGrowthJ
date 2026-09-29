@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>FungiGrowthJ — Biological Analysis Notebook: User and Methodological Guide</title>
+<style>
+    :root {
+      --bg: #f4f6f3;
+      --paper: #fff;
+      --ink: #24312a;
+      --muted: #66736c;
+      --accent: #2d6f4d;
+      --accent-soft: #e5f0e9;
+      --line: #d8e0da;
+      --code: #18211c;
+      --table: #eef4ef
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      line-height: 1.7
+    }
+
+    .header {
+      background: linear-gradient(135deg, #173c2a, #2d6f4d);
+      color: #fff;
+      padding: 58px 24px 48px
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: auto
+    }
+
+    .kicker {
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .76rem;
+      opacity: .86;
+      margin-bottom: 10px
+    }
+
+    .doc-title {
+      font-family: Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 4.1rem);
+      line-height: 1.05;
+      margin: 0 0 10px
+    }
+
+    .doc-subtitle {
+      font-size: 1.14rem;
+      opacity: .94;
+      max-width: 920px
+    }
+
+    .meta {
+      margin-top: 22px;
+      display: grid;
+      gap: 5px;
+      font-size: .94rem;
+      color: rgba(255, 255, 255, .9)
+    }
+
+    .layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      gap: 26px;
+      padding: 30px 24px 70px
+    }
+
+    nav {
+      position: sticky;
+      top: 18px;
+      align-self: start;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(20, 50, 32, .05);
+      max-height: calc(100vh - 36px);
+      overflow: auto
+    }
+
+    nav h2 {
+      font-size: 1rem;
+      margin: 0 0 10px;
+      border: 0;
+      padding: 0
+    }
+
+    nav a {
+      display: block;
+      text-decoration: none;
+      color: var(--ink);
+      padding: 6px 8px;
+      border-radius: 7px;
+      font-size: .9rem
+    }
+
+    nav a:hover {
+      background: var(--accent-soft);
+      color: var(--accent)
+    }
+
+    main {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 38px 42px 50px;
+      box-shadow: 0 8px 24px rgba(20, 50, 32, .045)
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      color: #244d40
+    }
+
+    /* Header overrides the document-wide h1 color so the title remains
+       readable on the dark green banner. */
+    .header .doc-title {
+      color: #fff;
+    }
+
+    .header .doc-subtitle {
+      color: rgba(255, 255, 255, .96);
+    }
+
+    .header .meta {
+      color: rgba(255, 255, 255, .92);
+    }
+
+    .header .meta code {
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .20);
+    }
+
+    /* Explicit contrast for every element inside the header. */
+    .header,
+    .header * {
+      color: #fff;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #173c2a, #2d6f4d);
+    }
+
+    .header .meta code {
+      color: #fff;
+    }
+
+    h2 {
+      font-family: Georgia, serif;
+      font-size: 1.85rem;
+      color: #244d40;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
+      margin-top: 2.6rem
+    }
+
+    h2:first-of-type {
+      margin-top: 0
+    }
+
+    h3 {
+      font-size: 1.23rem;
+      color: #315e4a;
+      margin-top: 2rem
+    }
+
+    h4 {
+      font-size: 1.05rem;
+      color: #315e4a
+    }
+
+    p,
+    li {
+      max-width: 96ch
+    }
+
+    code {
+      background: #edf2ee;
+      color: #244d40;
+      padding: .12em .34em;
+      border-radius: 5px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: .92em
+    }
+
+    pre {
+      background: var(--code);
+      color: #e9f3ec;
+      padding: 16px 18px;
+      border-radius: 10px;
+      overflow: auto;
+      line-height: 1.5
+    }
+
+    pre code,
+    pre code *,
+    .sourceCode pre,
+    .sourceCode pre code,
+    .sourceCode pre code * {
+      background: transparent !important;
+      color: inherit !important;
+      padding: 0;
+      border-radius: 0;
+      font-size: inherit;
+    }
+
+    pre {
+      color: #e9f3ec !important;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 18px 0 24px;
+      background: #fff
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 9px 11px;
+      text-align: left;
+      vertical-align: top
+    }
+
+    th {
+      background: var(--table)
+    }
+
+    blockquote {
+      border-left: 4px solid var(--accent);
+      margin: 18px 0;
+      padding: 8px 16px;
+      color: var(--muted);
+      background: #f7faf8
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 34px 0
+    }
+
+    footer {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+      color: var(--muted);
+      font-size: .9rem
+    }
+
+    @media(max-width:900px) {
+      .layout {
+        grid-template-columns: 1fr
+      }
+
+      nav {
+        position: relative;
+        top: auto;
+        max-height: none
+      }
+
+      main {
+        padding: 28px 22px 40px
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+<div class="header-inner">
+<div class="kicker">FungiGrowthJ documentation</div>
+<h1 class="doc-title">FungiGrowthJ
+        Biological Analysis Notebook</h1>
+<div class="doc-subtitle">User and methodological guide</div>
+<div class="meta">
+<div><strong>Document type:</strong> User and methodological guide</div>
+<div><strong>Notebook:</strong>
+<code>FungiGrowthJ_Biological_Report_GENERIC_v4_SATELLITES_STYLED_EXECUTED.ipynb</code></div>
+<div><strong>Input:</strong> ZIP archive containing <code>*_FungiGrowthJ_results.csv</code> files</div>
+<div><strong>Output:</strong> machine-readable tables, figures, and a standalone HTML report</div>
+</div>
+</div>
+</header>
+<div class="layout">
+<nav>
+<h2>Contents</h2><a href="#user-and-methodological-guide">User and methodological
+        guide</a><a href="#1-purpose-and-scope">1. Purpose and scope</a><a href="#2-using-the-notebook">2. Using the
+        notebook</a><a href="#3-user-configuration">3. User configuration</a><a href="#4-data-flow-through-the-notebook">4. Data flow through the
+        notebook</a><a href="#5-notebook-blocks">5. Notebook blocks</a><a href="#block-1-user-configuration">Block 1 —
+        User configuration</a><a href="#block-2-imports-and-helper-functions">Block 2 — Imports and
+        helper functions</a><a href="#block-3-load-raw-fungigrowthj-results">Block 3 — Load raw
+        FungiGrowthJ results</a><a href="#block-4-normalize-metadata-and-resolve-revisions">Block 4 —
+        Normalize metadata and resolve revisions</a><a href="#6-main-colony-identification">6. Main-colony
+        identification</a><a href="#block-6-identify-the-main-colony-explicitly">Block 6 — Identify
+        the main colony explicitly</a><a href="#7-date-level-biological-observations">7. Date-level biological
+        observations</a><a href="#block-7-build-bio">Block 7 — Build bio</a><a href="#8-time-scale">8. Time scale</a><a href="#9-replicate-level-growth-parameters">9. Replicate-level growth
+        parameters</a><a href="#block-8-replicate-summary">Block 8 — replicate_summary</a><a href="#10-central-satellite-and-global-phenotype">10. Central, satellite,
+        and global phenotype</a><a href="#block-9-composition">Block 9 — composition</a><a href="#11-satellite-replicate-summary">11. Satellite replicate
+        summary</a><a href="#12-figure-specifications">12. Figure specifications</a><a href="#figure-1-strain-central-colony-growth-trajectories">Figure 1 —
+        Strain central-colony growth trajectories</a><a href="#figure-2-individual-replicate-radius-trajectories">Figure
+        2 —
+        Individual replicate radius trajectories</a><a href="#figure-3-central-satellite-and-global-colony-area">Figure
+        3 —
+        Central, satellite, and global colony area</a><a href="#figure-4-identifiable-satellite-count-through-time">Figure 4 —
+        Identifiable satellite count through time</a><a href="#figure-5-satellite-contribution-at-final-observation">Figure 5 —
+        Satellite contribution at final observation</a><a href="#13-morphology-figures">13. Morphology figures</a><a href="#block-12">Block 12</a><a href="#14-statistical-analyses">14. Statistical analyses</a><a href="#block-13-omnibus-strain-comparisons">Block 13 — Omnibus strain
+        comparisons</a><a href="#15-pairwise-comparisons">15. Pairwise comparisons</a><a href="#block-14">Block 14</a><a href="#16-principal-component-analysis-pca">16. Principal Component
+        Analysis (PCA)</a><a href="#17-hierarchical-clustering">17. Hierarchical clustering</a><a href="#18-automated-result-summaries">18. Automated result summaries</a><a href="#block-16">Block 16</a><a href="#19-output-tables">19. Output tables</a><a href="#20-methodological-safeguards">20. Methodological
+        safeguards</a><a href="#21-interpretation-notes">21. Interpretation notes</a><a href="#equivalent-radius-is-not-a-geometric-measurement-of-colony-distance-from-the-plate-center">Equivalent
+        radius is not a geometric measurement of colony distance from the plate
+        center</a><a href="#growth-rates-are-linear-descriptive-slopes">Growth rates are
+        linear descriptive slopes</a><a href="#satellite-count-is-a-separability-measurement">Satellite count
+        is a separability measurement</a><a href="#a-final-satellite-fraction-of-zero-is-not-necessarily-no-satellites">A
+        final satellite fraction of zero is not necessarily “no satellites”</a><a href="#22-reproducibility">22.
+        Reproducibility</a>
+</nav>
+<main>
+<h2 id="user-and-methodological-guide">User and methodological
+        guide</h2>
+<p><strong>Notebook:</strong>
+<code>FungiGrowthJ_Biological_Report.ipynb</code><br/>
+<strong>Purpose:</strong> biological analysis of FungiGrowthJ
+        result archives<br/>
+<strong>Input:</strong> a ZIP archive containing
+        <code>*_FungiGrowthJ_results.csv</code> files<br/>
+<strong>Output:</strong> tables, figures, and a standalone HTML
+        biological-analysis report
+      </p>
+<hr/>
+<h2 id="1-purpose-and-scope">1. Purpose and scope</h2>
+<p>This notebook separates <strong>measurement</strong> from
+        <strong>biological analysis</strong>.
+      </p><div class="callout"><strong>Prerequisite:</strong> Before using this notebook, consult the <strong>FungiGrowthJ User Manual</strong> for the meaning, calculation, units, provenance, and limitations of the image-level variables exported by FungiGrowthJ. The notebook uses those measurements; it does not replace the FungiGrowthJ measurement documentation.</div>
+<p>FungiGrowthJ produces image-level measurements and
+        review/classification information. The notebook then:</p>
+<ol type="1">
+<li>loads all result CSV files from a ZIP archive;</li>
+<li>normalizes metadata and resolves multiple revisions of the same
+          image;</li>
+<li>identifies the main/central colony explicitly from the FungiGrowthJ
+          classification;</li>
+<li>builds date-level observations for each biological replicate;</li>
+<li>calculates replicate-level growth parameters and endpoints;</li>
+<li>separately summarizes the central colony, satellite colonies, and
+          the combined global phenotype;</li>
+<li>produces growth trajectories and morphology plots;</li>
+<li>performs strain-level omnibus and exploratory pairwise
+          comparisons;</li>
+<li>builds a multivariate strain phenotype profile for PCA and
+          hierarchical clustering;</li>
+<li>generates a standalone HTML report and machine-readable tables.</li>
+</ol>
+<p>The notebook is deliberately <strong>generic</strong>. It does not
+        assume a particular set of strain names, exactly three replicates,
+        R1/R2/R3, a fixed number of dates, or a specific FungiGrowthJ software
+        version. Measurements that are not present in the input are skipped
+        rather than invented.</p>
+<hr/>
+<h2 id="2-using-the-notebook">2. Using the notebook</h2>
+<h3 id="documentation-boundary">Documentation boundary</h3><p><strong>FungiGrowthJ User Manual:</strong> image acquisition workflow, ROI review, measurement definitions, output columns, formulas, calibration, provenance, and QA of measured image objects.</p><p><strong>Biological Analysis Notebook User Manual:</strong> input preparation, revision resolution, aggregation to biological replicates, longitudinal summaries, central/satellite/global summaries, figures, statistical analyses, PCA, clustering, interpretation, and analysis reproducibility.</p><h3 id="requirements">Requirements</h3>
+<p>The notebook uses:</p>
+<ul>
+<li>Python 3</li>
+<li>NumPy</li>
+<li>pandas</li>
+<li>Matplotlib</li>
+<li>SciPy</li>
+<li>scikit-learn</li>
+<li>Jupyter Notebook / JupyterLab</li>
+</ul>
+<h3 id="input-structure">Input structure</h3>
+<p>Provide a ZIP archive containing FungiGrowthJ result CSV files. The
+        notebook searches for files whose names contain:</p>
+<pre class="text"><code>_FungiGrowthJ_results.csv</code></pre>
+<h3 id="minimal-workflow">Minimal workflow</h3>
+<ol type="1">
+<li>Open the notebook.</li>
+<li>In the <strong>USER CONFIGURATION</strong> cell, set:</li>
+</ol>
+<div class="sourceCode" id="cb2">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>ZIP_PATH <span class="op">=</span> Path(<span class="st">"results.zip"</span>)</span></code></pre>
+</div>
+<ol start="3" type="1">
+<li>Run <strong>Run All</strong>.</li>
+</ol>
+<p>The notebook creates:</p>
+<pre class="text"><code>FGJ_biological_report/
+├── figures/
+└── tables/</code></pre>
+<p>and also creates a standalone:</p>
+<pre class="text"><code>FungiGrowthJ_Biological_Report.html</code></pre>
+<p>inside the output directory.</p>
+<hr/>
+<h2 id="3-user-configuration">3. User configuration</h2>
+<p>The configuration cell contains the main analysis choices.</p>
+<h3 id="zip-path"><code>ZIP_PATH</code></h3>
+<p>Path to the input results archive.</p>
+<h3 id="main-colony-labels"><code>MAIN_COLONY_LABELS</code></h3>
+<div class="sourceCode" id="cb5">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>MAIN_COLONY_LABELS <span class="op">=</span> {</span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>    <span class="st">"CEN"</span>, <span class="st">"CENTRAL"</span>, <span class="st">"MAIN"</span>, <span class="st">"PRIMARY"</span>,</span>
+<span id="cb5-3"><a aria-hidden="true" href="#cb5-3" tabindex="-1"></a>    <span class="st">"MAIN_COLONY"</span>, <span class="st">"CENTRAL_COLONY"</span></span>
+<span id="cb5-4"><a aria-hidden="true" href="#cb5-4" tabindex="-1"></a>}</span></code></pre>
+</div>
+<p>The notebook searches <code>final_type</code> first and
+        <code>proposed_type</code> second.
+      </p>
+<p>The actual FungiGrowthJ dataset used for development contains the
+        label <strong><code>CEN</code></strong>, so <code>CEN</code> is
+        recognized as the main colony label.</p>
+<p>The notebook does <strong>not</strong> infer the main colony from
+        size, position, proximity to the plate center, or any other
+        morphological property.</p>
+<h3 id="multiple-main-policy"><code>MULTIPLE_MAIN_POLICY</code></h3>
+<p>Default:</p>
+<div class="sourceCode" id="cb6">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>MULTIPLE_MAIN_POLICY <span class="op">=</span> <span class="st">"exclude"</span></span></code></pre>
+</div>
+<p>When an image contains more than one object explicitly classified as
+        the main colony, the default is to exclude that image from the
+        date-level biological summary rather than silently choosing one.</p>
+<p>An alternative available in the code is:</p>
+<div class="sourceCode" id="cb7">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a>MULTIPLE_MAIN_POLICY <span class="op">=</span> <span class="st">"largest"</span></span></code></pre>
+</div>
+<p>which selects the largest main-labelled object.</p>
+<p>The rigorous default is therefore <strong>exclude ambiguous
+          images</strong>.</p>
+<h3 id="alpha"><code>ALPHA</code></h3>
+<div class="sourceCode" id="cb8">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a>ALPHA <span class="op">=</span> <span class="fl">0.05</span></span></code></pre>
+</div>
+<p>Nominal threshold used when the notebook summarizes omnibus
+        statistical results.</p>
+<h3 id="min-points-for-rate"><code>MIN_POINTS_FOR_RATE</code></h3>
+<div class="sourceCode" id="cb9">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a>MIN_POINTS_FOR_RATE <span class="op">=</span> <span class="dv">3</span></span></code></pre>
+</div>
+<p>A replicate needs at least three valid temporal observations to
+        receive a growth-rate estimate.</p>
+<hr/>
+<h2 id="4-data-flow-through-the-notebook">4. Data flow through the
+        notebook</h2>
+<p>The central data objects are:</p>
+<pre class="text"><code>raw
+  ↓
+selected
+  ↓
+candidate / bio
+  ↓
+replicate_summary
+  ↓
+composition
+  ↓
+satellite_summary / global_replicate_summary
+  ↓
+figures + statistical analyses + HTML report</code></pre>
+<p>The most important distinction is between:</p>
+<ul>
+<li><strong>date-level observations</strong> used for trajectories and
+          descriptive longitudinal plots;</li>
+<li><strong>replicate-level summaries</strong> used as the experimental
+          unit for strain-level inference;</li>
+<li><strong>strain-level profiles</strong> used for PCA and
+          clustering.</li>
+</ul>
+<hr/>
+<h2 id="5-notebook-blocks">5. Notebook blocks</h2>
+<h2 id="block-1-user-configuration">Block 1 — User configuration</h2>
+<p><strong>Purpose:</strong> define input path, main-colony labels,
+        statistical alpha, and minimum observations required for rate
+        estimation.</p>
+<p><strong>Why:</strong> these are the few choices that control the
+        analysis without changing the scientific calculations elsewhere in the
+        notebook.</p>
+<hr/>
+<h2 id="block-2-imports-and-helper-functions">Block 2 — Imports and
+        helper functions</h2>
+<p>Imports:</p>
+<ul>
+<li>NumPy</li>
+<li>pandas</li>
+<li>Matplotlib</li>
+<li>SciPy statistics</li>
+<li>SciPy hierarchical clustering</li>
+<li>scikit-learn StandardScaler</li>
+<li>scikit-learn PCA</li>
+</ul>
+<p>Helper functions include:</p>
+<ul>
+<li><code>first_existing()</code> — finds the first available metadata
+          column;</li>
+<li><code>slug()</code> — generates safe filenames.</li>
+</ul>
+<p><strong>Why:</strong> the notebook is designed to tolerate small
+        differences among FungiGrowthJ result schemas.</p>
+<hr/>
+<h2 id="block-3-load-raw-fungigrowthj-results">Block 3 — Load raw
+        FungiGrowthJ results</h2>
+<p>The notebook:</p>
+<ul>
+<li>opens the ZIP;</li>
+<li>finds all <code>*_FungiGrowthJ_results.csv</code>;</li>
+<li>reads each CSV;</li>
+<li>concatenates them into <code>raw</code>.</li>
+</ul>
+<p>Important fields remain attached to every row, including:</p>
+<ul>
+<li>strain;</li>
+<li>replicate;</li>
+<li>date;</li>
+<li>image filename;</li>
+<li>classification;</li>
+<li>measurements;</li>
+<li>software/version metadata when available;</li>
+<li>analysis revision when available.</li>
+</ul>
+<p><strong>Output:</strong> <code>raw</code></p>
+<p><strong>Why:</strong> all original result rows are retained before
+        biological filtering or aggregation.</p>
+<hr/>
+<h2 id="block-4-normalize-metadata-and-resolve-revisions">Block 4 —
+        Normalize metadata and resolve revisions</h2>
+<p>The notebook identifies the available columns for:</p>
+<ul>
+<li>date;</li>
+<li>strain;</li>
+<li>replicate;</li>
+<li>image filename.</li>
+</ul>
+<p>It constructs:</p>
+<pre class="text"><code>_image_key =
+strain + replicate + date + image_file</code></pre>
+<p>It then computes a revision rank using the maximum of:</p>
+<ul>
+<li>the explicit <code>analysis_revision</code> field, when
+          available;</li>
+<li>the revision number encoded in the source path, when available.</li>
+</ul>
+<p>Only the highest revision for each image identity is retained in:</p>
+<pre class="text"><code>selected</code></pre>
+<p><strong>Why:</strong> biological analysis must not count multiple
+        revisions of the same image as independent observations.</p>
+<hr/>
+<h2 id="6-main-colony-identification">6. Main-colony identification</h2>
+<h2 id="block-6-identify-the-main-colony-explicitly">Block 6 — Identify
+        the main colony explicitly</h2>
+<p>The notebook searches for a recognized main-colony label.</p>
+<p>Priority:</p>
+<ol type="1">
+<li><code>final_type</code></li>
+<li><code>proposed_type</code></li>
+</ol>
+<p>Then:</p>
+<div class="sourceCode" id="cb13">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" href="#cb13-1" tabindex="-1"></a>selected[<span class="st">"_main_candidate"</span>]</span></code></pre>
+</div>
+<p>is a Boolean indicator of whether the row is the recognized main
+        colony.</p>
+<p>The notebook reports how many images have:</p>
+<ul>
+<li>zero main candidates;</li>
+<li>exactly one main candidate;</li>
+<li>more than one main candidate.</li>
+</ul>
+<p><strong>Why:</strong> the central colony is a biological
+        classification from FungiGrowthJ, not something the notebook should
+        infer from size.</p>
+<hr/>
+<h2 id="7-date-level-biological-observations">7. Date-level biological
+        observations</h2>
+<h2 id="block-7-build-bio">Block 7 — Build <code>bio</code></h2>
+<p>Only rows classified as the main colony enter this table.</p>
+<p>The following measurements are retained when available:</p>
+<pre class="text"><code>area_mm2
+perimeter_mm
+equivalent_radius_mm
+equivalent_diameter_mm
+major_axis_mm
+minor_axis_mm
+feret_max_mm
+feret_min_mm
+circularity
+aspect_ratio
+eccentricity
+solidity
+convexity
+plate_occupancy_pct</code></pre>
+<p>For each:</p>
+<pre class="text"><code>strain × replicate × date</code></pre>
+<p>the notebook uses the <strong>median</strong> of the available
+        image-level values.</p>
+<p>It also records:</p>
+<pre class="text"><code>n_images</code></pre>
+<p>for that date-level observation.</p>
+<h3 id="equivalent-radius">Equivalent radius</h3>
+<p>The notebook uses FungiGrowthJ’s:</p>
+<pre class="text"><code>equivalent_radius_mm</code></pre>
+<p>when available.</p>
+<p>If equivalent radius is missing but area is available, it
+        derives:</p>
+<p>[ r_{eq} = ]</p>
+<p>and records:</p>
+<pre class="text"><code>radius_source = "derived_from_area"</code></pre>
+<p>Otherwise:</p>
+<pre class="text"><code>radius_source = "plugin_measurement"</code></pre>
+<p><strong>Why:</strong> equivalent radius provides a size metric that
+        is directly comparable across irregular colony shapes while still being
+        derived from measured colony area.</p>
+<hr/>
+<h2 id="8-time-scale">8. Time scale</h2>
+<p>For each biological replicate:</p>
+<pre class="text"><code>t_days = days since the first observation of that replicate</code></pre>
+<p>This means longitudinal curves are aligned to the first sampled
+        observation of each replicate rather than to a global calendar date.</p>
+<p><strong>Why:</strong> the notebook compares trajectories on a common
+        elapsed-time scale.</p>
+<hr/>
+<h2 id="9-replicate-level-growth-parameters">9. Replicate-level growth
+        parameters</h2>
+<h2 id="block-8-replicate-summary">Block 8 —
+        <code>replicate_summary</code>
+</h2>
+<p>This is one of the most important tables in the notebook.</p>
+<p>For each:</p>
+<pre class="text"><code>strain × replicate</code></pre>
+<p>the notebook calculates:</p>
+<h3 id="colony-area">Colony area</h3>
+<pre class="text"><code>initial_area_mm2
+final_area_mm2
+max_area_mm2
+area_rate_mm2_day
+area_rate_r2</code></pre>
+<h3 id="equivalent-radius-2">Equivalent radius</h3>
+<pre class="text"><code>initial_radius_mm
+final_radius_mm
+max_radius_mm
+radial_rate_mm_day
+radial_rate_r2</code></pre>
+<h3 id="morphology">Morphology</h3>
+<p>For each available morphology variable:</p>
+<pre class="text"><code>final_circularity
+mean_circularity
+
+final_aspect_ratio
+mean_aspect_ratio
+
+final_eccentricity
+mean_eccentricity
+
+final_solidity
+mean_solidity
+
+final_convexity
+mean_convexity</code></pre>
+<p>and:</p>
+<pre class="text"><code>final_perimeter_mm
+mean_perimeter_mm</code></pre>
+<h3 id="how-growth-rates-are-calculated">How growth rates are
+        calculated</h3>
+<p>For both area and equivalent radius, the notebook fits:</p>
+<p>[ y = a + bt ]</p>
+<p>using ordinary least-squares linear regression over the available
+        longitudinal observations for that replicate.</p>
+<p>The slope:</p>
+<pre class="text"><code>b</code></pre>
+<p>is the observed average rate.</p>
+<p>Therefore:</p>
+<pre class="text"><code>area_rate_mm2_day</code></pre>
+<p>is the slope of area against time, and:</p>
+<pre class="text"><code>radial_rate_mm_day</code></pre>
+<p>is the slope of equivalent radius against time.</p>
+<p>The notebook also stores:</p>
+<pre class="text"><code>R²</code></pre>
+<p>from the same linear regression.</p>
+<p><strong>Important:</strong> these are <strong>descriptive observed
+          slopes</strong>, not estimates from a mechanistic growth model and not
+        instantaneous growth rates.</p>
+<hr/>
+<h2 id="10-central-satellite-and-global-phenotype">10. Central, satellite,
+        and global phenotype</h2>
+<h2 id="block-9-composition">Block 9 — <code>composition</code></h2>
+<p>The notebook separates:</p>
+<h3 id="central-colony">Central colony</h3>
+<pre class="text"><code>central_area_mm2</code></pre>
+<h3 id="satellites">Satellites</h3>
+<pre class="text"><code>satellite_total_area_mm2
+n_satellites_identifiable
+mean_identifiable_satellite_area_mm2</code></pre>
+<p>A satellite is included only when it is explicitly labelled as:</p>
+<pre class="text"><code>SAT
+SATELLITE
+SATELLITES</code></pre>
+<h3 id="global-colony">Global colony</h3>
+<pre class="text"><code>global_area_mm2 =
+central_area_mm2 + satellite_total_area_mm2</code></pre>
+<h3 id="satellite-fraction">Satellite fraction</h3>
+<pre class="text"><code>satellite_fraction_global =
+satellite_total_area_mm2 / global_area_mm2</code></pre>
+<p><strong>Why:</strong> this keeps the central colony and satellite
+        architecture analytically distinct while also providing a combined
+        global phenotype.</p>
+<hr/>
+<h2 id="11-satellite-replicate-summary">11. Satellite replicate
+        summary</h2>
+<p>For every biological replicate the notebook calculates:</p>
+<pre class="text"><code>has_identifiable_satellites
+days_to_first_identifiable_satellite
+max_identifiable_satellite_count
+final_identifiable_satellite_count
+final_satellite_area_mm2
+max_satellite_area_mm2
+mean_satellite_area_mm2_when_identifiable
+final_satellite_fraction_global
+max_satellite_fraction_global
+final_central_area_mm2
+final_global_area_mm2</code></pre>
+<p>If at least three temporal observations are available, it also
+        calculates:</p>
+<pre class="text"><code>satellite_count_rate
+satellite_area_rate_mm2_day
+count_down_area_up_pattern</code></pre>
+<p>The latter is true when:</p>
+<pre class="text"><code>satellite count slope &lt; 0
+AND
+satellite area slope &gt; 0</code></pre>
+<p>This is interpreted as <strong>compatible with colony expansion,
+          merging, or loss of separability</strong>, not as demonstrated
+        biological disappearance of satellites.</p>
+<hr/>
+<h2 id="12-figure-specifications">12. Figure specifications</h2>
+<h2 id="figure-1-strain-central-colony-growth-trajectories">Figure 1 —
+        Strain central-colony growth trajectories</h2>
+<p><strong>File:</strong></p>
+<pre class="text"><code>growth_area_strain_mean.png</code></pre>
+<h3 id="variable">Variable</h3>
+<pre class="text"><code>bio["area_mm2"]</code></pre>
+<h3 id="grouping">Grouping</h3>
+<pre class="text"><code>strain_id
+t_days</code></pre>
+<h3 id="calculation">Calculation</h3>
+<p>For each strain and elapsed time:</p>
+<ul>
+<li>mean area;</li>
+<li>standard deviation.</li>
+</ul>
+<h3 id="interpretation">Interpretation</h3>
+<p>Shows the descriptive mean ± SD trajectory of <strong>central colony
+          area</strong> among biological replicates.</p>
+<p>Repeated time points are visualized longitudinally, but they are not
+        treated as independent replicates in inferential tests.</p>
+<hr/>
+<h2 id="figure-2-individual-replicate-radius-trajectories">Figure 2 —
+        Individual replicate radius trajectories</h2>
+<p><strong>File:</strong></p>
+<pre class="text"><code>growth_radius_replicates.png</code></pre>
+<h3 id="variable-2">Variable</h3>
+<pre class="text"><code>bio["equivalent_radius_mm"]</code></pre>
+<h3 id="grouping-2">Grouping</h3>
+<pre class="text"><code>strain_id
+replicate_id
+t_days</code></pre>
+<h3 id="interpretation-2">Interpretation</h3>
+<p>Each line is one biological replicate.</p>
+<p>This figure uses <strong>equivalent radius</strong>, not a geometric
+        radius measured from a manually defined center.</p>
+<p>Equivalent radius comes from the measured colony area:</p>
+<p>[ r_{eq} = ]</p>
+<p>unless FungiGrowthJ provided an equivalent-radius measurement
+        directly.</p>
+<hr/>
+<h2 id="figure-3-central-satellite-and-global-colony-area">Figure 3 —
+        Central, satellite, and global colony area</h2>
+<p><strong>File:</strong></p>
+<pre class="text"><code>central_satellite_global_area.png</code></pre>
+<h3 id="variables">Variables</h3>
+<pre class="text"><code>central_area_mm2
+satellite_total_area_mm2
+global_area_mm2</code></pre>
+<p>from:</p>
+<pre class="text"><code>composition</code></pre>
+<h3 id="grouping-3">Grouping</h3>
+<pre class="text"><code>t_days</code></pre>
+<h3 id="display">Display</h3>
+<p>Mean ± SD across biological replicates.</p>
+<h3 id="interpretation-3">Interpretation</h3>
+<p>Shows how the measured central colony, identifiable satellite area,
+        and combined global colony area change through time.</p>
+<hr/>
+<h2 id="figure-4-identifiable-satellite-count-through-time">Figure 4 —
+        Identifiable satellite count through time</h2>
+<p><strong>File:</strong></p>
+<pre class="text"><code>satellite_count_trajectory.png</code></pre>
+<h3 id="variable-3">Variable</h3>
+<pre class="text"><code>n_satellites_identifiable</code></pre>
+<p>from:</p>
+<pre class="text"><code>composition</code></pre>
+<h3 id="display-2">Display</h3>
+<p>Mean ± SD through time.</p>
+<h3 id="important-interpretation">Important interpretation</h3>
+<p>This is the number of <strong>individually distinguishable SAT
+          objects</strong>.</p>
+<p>A decrease can occur because:</p>
+<ul>
+<li>colonies expand and merge;</li>
+<li>boundaries become impossible to separate;</li>
+<li>the objects cease to be distinguishable.</li>
+</ul>
+<p>The notebook therefore does not interpret a decreasing count
+        automatically as biological disappearance.</p>
+<hr/>
+<h2 id="figure-5-satellite-contribution-at-final-observation">Figure 5 —
+        Satellite contribution at final observation</h2>
+<p><strong>File:</strong></p>
+<pre class="text"><code>satellite_fraction_final.png</code></pre>
+<h3 id="variable-4">Variable</h3>
+<pre class="text"><code>final_satellite_fraction_global</code></pre>
+<p>from:</p>
+<pre class="text"><code>satellite_summary</code></pre>
+<h3 id="definition">Definition</h3>
+<p>[ = {} ]</p>
+<h3 id="inclusion-rule">Inclusion rule</h3>
+<p>A replicate is included if it had <strong>at least one identifiable
+          satellite at any observation</strong>.</p>
+<p>The plotted value is the fraction at that replicate’s <strong>final
+          observation</strong>.</p>
+<h3 id="display-3">Display</h3>
+<p>The current version uses:</p>
+<ul>
+<li>one boxplot per strain;</li>
+<li>one point per biological replicate;</li>
+<li>jitter to avoid overlapping points;</li>
+<li><code>n</code> = number of satellite-positive biological
+          replicates.</li>
+</ul>
+<p>Therefore, a final value close to 0 does <strong>not</strong> mean
+        the replicate was never satellite-positive.</p>
+<hr/>
+<h2 id="13-morphology-figures">13. Morphology figures</h2>
+<h2 id="block-12">Block 12</h2>
+<p>Morphology variables:</p>
+<pre class="text"><code>circularity
+aspect_ratio
+eccentricity
+solidity
+convexity</code></pre>
+<p>These are taken from the date-level <code>bio</code> table.</p>
+<p>Each morphology figure is a boxplot by strain.</p>
+<h3 id="important-distinction-from-growth-rate-statistics">Important
+        distinction from growth-rate statistics</h3>
+<p>The morphology plots use the available <strong>date-level
+          observations</strong>, so repeated measurements through time can
+        contribute multiple points.</p>
+<p>They are primarily <strong>descriptive phenotype
+          distributions</strong>.</p>
+<p>They are not the replicate-level strain tests used in the omnibus
+        statistics.</p>
+<hr/>
+<h2 id="14-statistical-analyses">14. Statistical analyses</h2>
+<h2 id="block-13-omnibus-strain-comparisons">Block 13 — Omnibus strain
+        comparisons</h2>
+<p>The experimental unit is:</p>
+<blockquote>
+<p><strong>biological replicate</strong></p>
+</blockquote>
+<p>The tested endpoints are exactly:</p>
+<pre class="text"><code>final_area_mm2
+max_area_mm2
+area_rate_mm2_day
+final_radius_mm
+max_radius_mm
+radial_rate_mm_day</code></pre>
+<h3 id="anova">ANOVA</h3>
+<p>For each endpoint:</p>
+<pre class="text"><code>one-way ANOVA</code></pre>
+<p>is calculated across strains.</p>
+<p>The notebook reports:</p>
+<pre class="text"><code>anova_F
+anova_p
+eta_squared</code></pre>
+<h3 id="kruskal-wallis">Kruskal–Wallis</h3>
+<p>For the same endpoint:</p>
+<pre class="text"><code>Kruskal–Wallis</code></pre>
+<p>is also calculated.</p>
+<p>The notebook reports:</p>
+<pre class="text"><code>kruskal_H
+kruskal_p</code></pre>
+<h3 id="complementary-omnibus-tests">Complementary omnibus tests</h3>
+<p>ANOVA and Kruskal–Wallis provide complementary summaries under
+        different distributional assumptions.</p>
+<p>The notebook does not use the time points as independent
+        replicates.</p>
+<hr/>
+<h2 id="15-pairwise-comparisons">15. Pairwise comparisons</h2>
+<h2 id="block-14">Block 14</h2>
+<p>Pairwise comparisons are performed for the same six endpoints.</p>
+<p>For each pair of strains:</p>
+<pre class="text"><code>Welch's two-sample t-test</code></pre>
+<p>is used with:</p>
+<div class="sourceCode" id="cb61">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a aria-hidden="true" href="#cb61-1" tabindex="-1"></a>equal_var<span class="op">=</span><span class="va">False</span></span></code></pre>
+</div>
+<p>The raw p-values are then adjusted <strong>within each
+          endpoint</strong> using the Holm procedure.</p>
+<p>Output columns include:</p>
+<pre class="text"><code>endpoint
+strain_1
+strain_2
+n_1
+n_2
+welch_t
+p_raw
+p_holm</code></pre>
+<h3 id="welch-s-t-test-rationale">Welch’s t-test rationale</h3>
+<p>It does not assume equal variances between the two strain groups.</p>
+<h3 id="important">Important</h3>
+<p>These pairwise comparisons are explicitly described as
+        <strong>exploratory</strong>, especially where some strains have small
+        numbers of biological replicates.
+      </p>
+<hr/>
+<h2 id="16-principal-component-analysis-pca">16. Principal Component
+        Analysis (PCA)</h2>
+<p>The PCA uses <strong>strain-level mean replicate
+          endpoints</strong>.</p>
+<p>The candidate variables are:</p>
+<pre class="text"><code>area_rate_mm2_day
+radial_rate_mm_day
+final_area_mm2
+final_radius_mm
+mean_circularity
+mean_aspect_ratio
+mean_eccentricity
+mean_solidity
+mean_convexity
+final_global_area_mm2
+global_area_mm2_rate
+final_satellite_area_mm2
+final_satellite_fraction_global</code></pre>
+<p>Only variables that actually exist in <code>replicate_summary</code>
+        are used.</p>
+<h3 id="pca-preprocessing">PCA preprocessing</h3>
+<p>For each strain:</p>
+<ol type="1">
+<li>replicate-level values are averaged;</li>
+<li>variables are retained when they have sufficient coverage;</li>
+<li>remaining missing values are filled with the median of that variable
+          across strains;</li>
+<li>all variables are standardized with:</li>
+</ol>
+<div class="sourceCode" id="cb64">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a aria-hidden="true" href="#cb64-1" tabindex="-1"></a>StandardScaler()</span></code></pre>
+</div>
+<p>so every variable contributes on a common standardized scale.</p>
+<p>Then:</p>
+<div class="sourceCode" id="cb65">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a aria-hidden="true" href="#cb65-1" tabindex="-1"></a>PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span></code></pre>
+</div>
+<p>is fitted to the standardized strain profiles.</p>
+<h3 id="variables-included-in-the-pca">Variables included in the
+        PCA</h3>
+<p><strong>Size/growth variables</strong></p>
+<ul>
+<li>final central area;</li>
+<li>maximum central area;</li>
+<li>area expansion rate;</li>
+<li>final equivalent radius;</li>
+<li>equivalent-radius expansion rate.</li>
+</ul>
+<p><strong>Morphology variables</strong></p>
+<ul>
+<li>mean circularity;</li>
+<li>mean aspect ratio;</li>
+<li>mean eccentricity;</li>
+<li>mean solidity;</li>
+<li>mean convexity.</li>
+</ul>
+<p><strong>Global/satellite variables</strong></p>
+<ul>
+<li>final global area;</li>
+<li>global area expansion rate;</li>
+<li>final identifiable satellite area;</li>
+<li>final satellite fraction of global area.</li>
+</ul>
+<h3 id="variables-excluded-from-the-pca">Variables excluded from the
+        PCA</h3>
+<p>The PCA does <strong>not</strong> use:</p>
+<ul>
+<li>every image independently;</li>
+<li>every date independently;</li>
+<li>raw pixel values;</li>
+<li>perimeter directly;</li>
+<li>major axis directly;</li>
+<li>minor axis directly;</li>
+<li>Feret diameter directly;</li>
+<li>colony coordinates;</li>
+<li>the inoculation-origin coordinates;</li>
+<li>individual satellite identities.</li>
+</ul>
+<p>The PCA is therefore a <strong>strain-level summary of measured
+          phenotype</strong>, not an image-level PCA and not a genetic/taxonomic
+        analysis.</p>
+<h3 id="interpretation-4">Interpretation</h3>
+<p>Each point represents one strain.</p>
+<p>Nearby strains have more similar standardized phenotype profiles
+        across the selected variables.</p>
+<p>The percentage shown on PC1 and PC2 is the proportion of variance
+        explained by those components.</p>
+<p>The direction of a variable’s contribution is <strong>not shown in
+          the current figure</strong>, so the current PCA should be interpreted
+        primarily as a map of multivariate strain similarity, not as a
+        variable-loading plot.</p>
+<hr/>
+<h2 id="17-hierarchical-clustering">17. Hierarchical clustering</h2>
+<p>The clustering uses <strong>the exact same standardized strain
+          profile matrix used by the PCA</strong>.</p>
+<p>That means it uses the same:</p>
+<pre class="text"><code>profile_vars</code></pre>
+<p>the same strain-level means, the same median missing-value
+        imputation, and the same z-standardization.</p>
+<p>Clustering method:</p>
+<div class="sourceCode" id="cb67">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a aria-hidden="true" href="#cb67-1" tabindex="-1"></a>linkage(Xz, method<span class="op">=</span><span class="st">"ward"</span>)</span></code></pre>
+</div>
+<h3 id="ward-linkage-rationale">Ward linkage rationale</h3>
+<p>Ward’s method groups strains while minimizing the increase in
+        within-cluster variance.</p>
+<p>The resulting dendrogram describes <strong>similarity among measured
+          phenotypes</strong>.</p>
+<p>It is not:</p>
+<ul>
+<li>a phylogeny;</li>
+<li>a taxonomic tree;</li>
+<li>a genetic-distance tree.</li>
+</ul>
+<hr/>
+<h2 id="18-automated-result-summaries">18. Automated result summaries</h2>
+<h2 id="block-16">Block 16</h2>
+<p>The notebook generates text summaries from the calculated
+        results.</p>
+<p>These include:</p>
+<ul>
+<li>number of strains and biological replicates;</li>
+<li>whether replicate numbers are balanced;</li>
+<li>descriptive highest/lowest means for selected endpoints;</li>
+<li>whether any omnibus p-value is below <code>ALPHA</code>;</li>
+<li>number of satellite-positive replicates;</li>
+<li>median time to first identifiable satellite;</li>
+<li>count-decrease/area-increase patterns;</li>
+<li>confirmation that repeated observations were not treated as
+          independent biological replicates;</li>
+<li>clarification that PCA/clustering is phenotypic rather than
+          taxonomic.</li>
+</ul>
+<p>The notebook deliberately avoids turning a descriptive difference
+        into a claim of statistical significance.</p>
+<hr/>
+<h2 id="19-output-tables">19. Output tables</h2>
+<p>The notebook exports the following key tables.</p>
+<h3 id="replicate-growth-parameters-csv"><code>replicate_growth_parameters.csv</code></h3>
+<p>One row per biological replicate.</p>
+<p>Contains:</p>
+<ul>
+<li>initial/final/max area;</li>
+<li>area growth rate and R²;</li>
+<li>initial/final/max equivalent radius;</li>
+<li>radial growth rate and R²;</li>
+<li>morphology summaries.</li>
+</ul>
+<h3 id="central-satellite-global-date-observations-csv">
+<code>central_satellite_global_date_observations.csv</code></h3>
+<p>One row per:</p>
+<pre class="text"><code>strain × replicate × date</code></pre>
+<p>Contains:</p>
+<ul>
+<li>central area;</li>
+<li>satellite area;</li>
+<li>global area;</li>
+<li>identifiable satellite count;</li>
+<li>satellite fraction;</li>
+<li>mean identifiable satellite area.</li>
+</ul>
+<h3 id="satellite-replicate-summary-csv"><code>satellite_replicate_summary.csv</code></h3>
+<p>One row per biological replicate with satellite-specific
+        endpoints.</p>
+<h3 id="global-replicate-growth-parameters-csv"><code>global_replicate_growth_parameters.csv</code></h3>
+<p>One row per biological replicate with longitudinal parameters
+        for:</p>
+<ul>
+<li>central area;</li>
+<li>satellite area;</li>
+<li>global area.</li>
+</ul>
+<h3 id="strain-morphology-summary-csv"><code>strain_morphology_summary.csv</code></h3>
+<p>Strain-level descriptive summaries for morphology.</p>
+<h3 id="strain-omnibus-statistics-csv"><code>strain_omnibus_statistics.csv</code></h3>
+<p>ANOVA, eta-squared, and Kruskal–Wallis results for the six predefined
+        growth endpoints.</p>
+<h3 id="pairwise-welch-holm-csv"><code>pairwise_welch_holm.csv</code></h3>
+<p>Exploratory pairwise Welch comparisons with Holm-adjusted
+        p-values.</p>
+<h3 id="strain-phenotypic-profile-csv"><code>strain_phenotypic_profile.csv</code></h3>
+<p>The strain-level phenotype matrix used as the basis for PCA and
+        hierarchical clustering <strong>before standardization</strong>.</p>
+<hr/>
+<h2 id="20-methodological-safeguards">20. Methodological safeguards</h2>
+<h3 id="biological-replicate-is-the-experimental-unit">Biological
+        replicate is the experimental unit</h3>
+<p>Image/ROI rows are not treated as independent biological
+        replicates.</p>
+<h3 id="repeated-observations-are-longitudinal">Repeated observations
+        are longitudinal</h3>
+<p>Dates within the same replicate are used to construct trajectories
+        and rates.</p>
+<h3 id="revision-resolution-occurs-first">Revision resolution occurs
+        first</h3>
+<p>Older revisions of the same image are not allowed to enter the
+        biological analysis alongside their newer revision.</p>
+<h3 id="central-colony-identity-is-explicit">Central colony identity is
+        explicit</h3>
+<p>The notebook uses the reviewed FungiGrowthJ classification rather
+        than guessing which object is central.</p>
+<h3 id="satellite-identity-is-conservative">Satellite identity is
+        conservative</h3>
+<p>Satellite counts refer to <strong>individually distinguishable
+          objects</strong>, not guaranteed persistent biological entities.</p>
+<h3 id="morphology-is-not-automatically-validity">Morphology is not
+        automatically validity</h3>
+<p>Low circularity, for example, remains a measured morphological
+        phenotype and is not automatically discarded as biologically
+        invalid.</p>
+<h3 id="pca-is-phenotypic">PCA is phenotypic</h3>
+<p>PCA and clustering summarize measured phenotype similarity; they do
+        not infer taxonomy or genetic relatedness.</p>
+<hr/>
+<h2 id="21-interpretation-notes">21. Interpretation notes</h2>
+<h2 id="equivalent-radius-is-not-a-geometric-measurement-of-colony-distance-from-the-plate-center">Equivalent
+        radius is not a geometric measurement of colony distance from the plate
+        center</h2>
+<p>It is an area-equivalent radius:</p>
+<p>[ r_{eq} = ]</p>
+<p>It represents the radius of a circle with the same area as the
+        measured colony.</p>
+<p>This makes it a useful scalar size metric for irregular colonies.</p>
+<h2 id="growth-rates-are-linear-descriptive-slopes">Growth rates are
+        linear descriptive slopes</h2>
+<p>The notebook calculates observed average slopes over the sampled
+        interval.</p>
+<p>It does not fit an exponential, logistic, Gompertz, Richards, or
+        mechanistic growth model.</p>
+<h2 id="satellite-count-is-a-separability-measurement">Satellite count
+        is a separability measurement</h2>
+<p>A drop in identifiable satellite count can occur because colonies
+        merge or cease to be distinguishable.</p>
+<h2 id="a-final-satellite-fraction-of-zero-is-not-necessarily-no-satellites">A
+        final satellite fraction of zero is not necessarily “no satellites”</h2>
+<p>A replicate is included in the final satellite-fraction plot if it
+        was satellite-positive at any observation. Its final value can therefore
+        be zero.</p>
+<hr/>
+<h2 id="22-reproducibility">22. Reproducibility</h2>
+<p>The notebook should be run from a clean environment with the declared
+        Python dependencies installed.</p>
+<p>For a published analysis, retain:</p>
+<ol type="1">
+<li>the exact FungiGrowthJ results ZIP;</li>
+<li>the exact notebook version;</li>
+<li>the FungiGrowthJ software version(s) reported in the result
+          files;</li>
+<li>the generated tables;</li>
+<li>the generated figures;</li>
+<li>the standalone HTML report.</li>
+</ol>
+<p>This makes it possible to distinguish changes in biological results
+        from changes in the software or analysis workflow.</p>
+<hr/>
+<ol start="23" type="1">
+<li>Reproducibility details</li>
+</ol>
+<p>The notebook should be run from a clean environment with the declared
+        Python dependencies installed.</p>
+<p>For a published analysis, retain:</p>
+<ol type="1">
+<li>the exact FungiGrowthJ results ZIP;</li>
+<li>the exact notebook version;</li>
+<li>the FungiGrowthJ software version(s) reported in the result
+          files;</li>
+<li>the generated tables;</li>
+<li>the generated figures;</li>
+<li>the standalone HTML report.</li>
+</ol>
+<p>This makes it possible to distinguish changes in the biological
+        results from changes in the software or analysis workflow.</p>
+</main>
+</div>
+<footer>FungiGrowthJ — Biological Analysis Notebook · User and methodological guide</footer>
+</body>
+</html>
